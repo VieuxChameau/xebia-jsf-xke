@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>fr.xebia.xke.jsfdemo</groupId>
+	<artifactId>xebia-jsf-xke</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>JSF 2 in action</name>
+	<inceptionYear>2012</inceptionYear>
+
+	<organization>
+		<name>Xebia</name>
+		<url>http://www.xebia.fr/</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<name>Yann Renaut</name>
+			<email>yrenaut@xebia.fr</email>
+			<roles>
+				<role>Developper</role>
+				<role>Architect</role>
+			</roles>
+			<organization>Xebia</organization>
+			<timezone>+1</timezone>
+		</developer>
+
+		<developer>
+			<name>Clément Lardeur</name>
+			<email>clardeur@xebia.fr</email>
+			<roles>
+				<role>Developper</role>
+				<role>Architect</role>
+			</roles>
+			<organization>Xebia</organization>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+
+        
+<!--	TODO: remplir une fois le depot github cree
+<scm>
+		
+   	</scm>-->
+
+
+
+    <properties>
+        <!-- Build -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.6</java.version>
+        <wtp.version>2.0</wtp.version>
+
+        <!-- Log -->
+        <log4j.version>1.2.13</log4j.version>
+        <slf4j.version>1.6.4</slf4j.version>
+
+        <guava.version>11.0.1</guava.version>
+
+        <!-- Servlet et pages -->
+        <mojarra.version>2.1.13</mojarra.version>
+        <jboss-el.version>2.0.1.GA</jboss-el.version>
+        <jstl.version>1.2</jstl.version>
+        <servlet-api.version>2.5</servlet-api.version>
+        <primefaces.version>3.4.2</primefaces.version>
+        <!--<primefaces.theme.version>1.0.3</primefaces.theme.version>-->
+        <!--<prettyfaces-jsf2.version>3.3.2</prettyfaces-jsf2.version>-->
+        <prettyfaces-jsf2.version>3.3.3</prettyfaces-jsf2.version>
+
+        <!-- Primefaces Dependencies -->
+        <commons-fileupload.version>1.2.1</commons-fileupload.version>
+        <commons-io.version>1.4</commons-io.version>
+        <poi.version>3.7</poi.version>
+        <itext.version>2.1.7</itext.version>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>6.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- JSF -->
+        <!--<dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>${mojarra.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>${mojarra.version}</version>
+            <scope>provided</scope>
+        </dependency>    -->
+
+        <!-- JSTL -->
+        <!-- <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>     -->
+
+        <!-- Servlet 2.5 -->
+        <!--<dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet-api.version}</version>
+            <scope>provided</scope>
+        </dependency>   -->
+
+        <!-- pretty faces -->
+        <dependency>
+            <groupId>com.ocpsoft</groupId>
+            <artifactId>prettyfaces-jsf2</artifactId>
+            <version>${prettyfaces-jsf2.version}</version>
+        </dependency>
+
+        <!-- Prime faces -->
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>${primefaces.version}</version>
+        </dependency>
+
+      
+
+        <!-- PrimeFaces File Upload dependies -->
+
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>${commons-fileupload.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+
+        <!-- PrimeFaces Export dependies -->
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>${itext.version}</version>
+        </dependency>
+
+       
+
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnifaces</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+			
+        <!-- logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.jdmk</groupId>
+                    <artifactId>jmxtools</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jmx</groupId>
+                    <artifactId>jmxri</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>runtime</scope>
+        </dependency>
+
+
+      
+
+        <!-- Guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+       
+    </dependencies>
+
+
+    <build>
+        <finalName>XebiaXkeJsf2</finalName>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+	
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Maven Repository Switchboard</name>
+            <layout>default</layout>
+            <url>http://repo1.maven.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>maven-repository.dev.java.net</id>
+            <name>Java.net Repository for Maven 1</name>
+            <url>http://download.java.net/maven/1/</url>
+            <layout>default</layout>
+        </repository>
+
+        <repository>
+            <id>maven2</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://download.java.net/maven/2</url>
+            <layout>default</layout>
+        </repository>
+
+		
+
+        <!-- Prime faces -->
+        <repository>
+            <id>prime-repo</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>http://repository.primefaces.org</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+</project>

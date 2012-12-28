@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:pou="http://primefaces.org/ui"
+                xmlns:pretty="http://ocpsoft.com/prettyfaces"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="titlePage">#{messages['welcome.pageTitle']}</ui:define>
+    <ui:define name="mainContent">
+        #{messages['welcome.title']} #{newJSFManagedBean.name}
+
+        <pou:separator />
+
+        <pretty:link mappingId="createSlot">
+            <f:param value="fr" />
+            Lien avec composant prettyfaces
+        </pretty:link>
+
+           <br />
+
+        <h:link outcome="pretty:createSlot" value="Lien avec composant h link">
+            <f:param value="en" />
+        </h:link>
+    </ui:define>
+</ui:composition>
