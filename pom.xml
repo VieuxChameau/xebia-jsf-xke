@@ -1,56 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>fr.xebia.xke.jsfdemo</groupId>
-	<artifactId>xebia-jsf-xke</artifactId>
-	<version>1.0-SNAPSHOT</version>
-	<packaging>war</packaging>
+    <groupId>fr.xebia.xke.jsfdemo</groupId>
+    <artifactId>xebia-jsf-xke</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
-	<name>JSF 2 in action</name>
-	<inceptionYear>2012</inceptionYear>
+    <name>JSF 2 in action</name>
+    <inceptionYear>2012</inceptionYear>
 
-	<organization>
-		<name>Xebia</name>
-		<url>http://www.xebia.fr/</url>
-	</organization>
+    <organization>
+        <name>Xebia</name>
+        <url>http://www.xebia.fr/</url>
+    </organization>
 
-	<developers>
-		<developer>
-			<name>Yann Renaut</name>
-			<email>yrenaut@xebia.fr</email>
-			<roles>
-				<role>Developper</role>
-				<role>Architect</role>
-			</roles>
-			<organization>Xebia</organization>
-			<timezone>+1</timezone>
-		</developer>
+    <developers>
+        <developer>
+            <name>Yann Renaut</name>
+            <email>yrenaut@xebia.fr</email>
+            <roles>
+                <role>Developper</role>
+                <role>Architect</role>
+            </roles>
+            <organization>Xebia</organization>
+            <timezone>+1</timezone>
+        </developer>
 
-		<developer>
-			<name>Clément Lardeur</name>
-			<email>clardeur@xebia.fr</email>
-			<roles>
-				<role>Developper</role>
-				<role>Architect</role>
-			</roles>
-			<organization>Xebia</organization>
-			<timezone>+1</timezone>
-		</developer>
-	</developers>
-
-        
-<!--	TODO: remplir une fois le depot github cree
-<scm>
-		
-   	</scm>-->
-
-
+        <developer>
+            <name>Clément Lardeur</name>
+            <email>clardeur@xebia.fr</email>
+            <roles>
+                <role>Developper</role>
+                <role>Architect</role>
+            </roles>
+            <organization>Xebia</organization>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
 
     <properties>
         <!-- Build -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.6</java.version>
+        <java.version>1.7</java.version>
         <wtp.version>2.0</wtp.version>
 
         <!-- Log -->
@@ -85,35 +78,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- JSF -->
-        <!--<dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-            <version>${mojarra.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-impl</artifactId>
-            <version>${mojarra.version}</version>
-            <scope>provided</scope>
-        </dependency>    -->
-
-        <!-- JSTL -->
-        <!-- <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>${jstl.version}</version>
-        </dependency>     -->
-
-        <!-- Servlet 2.5 -->
-        <!--<dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>${servlet-api.version}</version>
-            <scope>provided</scope>
-        </dependency>   -->
-
         <!-- pretty faces -->
         <dependency>
             <groupId>com.ocpsoft</groupId>
@@ -128,36 +92,32 @@
             <version>${primefaces.version}</version>
         </dependency>
 
-      
 
-        <!-- PrimeFaces File Upload dependies -->
-
+        <!-- PrimeFaces File Upload dependency -->
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
             <version>${commons-fileupload.version}</version>
         </dependency>
+
+        <!-- Apache -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
         </dependency>
-
-        <!-- PrimeFaces Export dependies -->
-
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>${poi.version}</version>
         </dependency>
 
+        <!-- IText -->
         <dependency>
             <groupId>com.lowagie</groupId>
             <artifactId>itext</artifactId>
             <version>${itext.version}</version>
         </dependency>
-
-       
 
         <dependency>
             <groupId>org.omnifaces</groupId>
@@ -165,21 +125,18 @@
             <version>1.2</version>
         </dependency>
 
-			
         <!-- logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
             <version>${slf4j.version}</version>
             <scope>runtime</scope>
         </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
@@ -204,35 +161,40 @@
             <scope>runtime</scope>
         </dependency>
 
-
-      
-
         <!-- Guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
-
-       
     </dependencies>
 
-
     <build>
-        <finalName>XebiaXkeJsf2</finalName>
-
+        <finalName>xebia-jsf-xke</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+                <version>7.3.Final</version>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
-	
 
     <repositories>
         <repository>
@@ -258,8 +220,6 @@
             <url>http://download.java.net/maven/2</url>
             <layout>default</layout>
         </repository>
-
-		
 
         <!-- Prime faces -->
         <repository>
