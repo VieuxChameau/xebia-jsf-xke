@@ -67,9 +67,18 @@
         <commons-io.version>1.4</commons-io.version>
         <poi.version>3.7</poi.version>
         <itext.version>2.1.7</itext.version>
+        <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.openid4java</groupId>
+            <artifactId>openid4java-consumer</artifactId>
+            <version>0.9.6</version>
+            <type>pom</type>
+        </dependency>
+
 
         <dependency>
             <groupId>javax</groupId>
@@ -131,6 +140,7 @@
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
@@ -180,7 +190,7 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <version>7.3.Final</version>
@@ -192,7 +202,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 
@@ -206,7 +216,7 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-
+        
         <repository>
             <id>maven-repository.dev.java.net</id>
             <name>Java.net Repository for Maven 1</name>

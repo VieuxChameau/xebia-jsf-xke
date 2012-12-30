@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:h="http://java.sun.com/jsf/html"
-				template="/WEB-INF/templates/template.xhtml">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="/WEB-INF/templates/template.xhtml"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="titlePage">#{messages['createslot.pageTitle']}</ui:define>
-	<ui:define name="mainContent">
-        <h:form >
-
-        </h:form>
-
-            Creation d'un slot
-            
-            locale #{languageBean.locale}
-
-	</ui:define>
+    <ui:define name="mainContent">
+        <h:form>
+            <p:messages />
+            <h:panelGrid columns="2" >
+                <h:outputLabel value="Titre" for="title"/>
+                <h:inputText value="#{slotManager.slot.title}" id="title" size="40"/>
+                <h:outputLabel value="Description" for="description" />
+                <h:inputTextarea value="#{slotManager.slot.description}" id="description" rows="10" cols="40"/>
+                <h:outputLabel value="Vidéo acceptée" for="video" />
+                <h:selectBooleanCheckbox value="#{slotManager.slot.videoAccepted}" id="video" />
+                <h:outputLabel value="Pret pour" for="popupCal"/>
+                <p:calendar value="#{slotManager.slot.scheduleDate}" id="popupCal" /> 
+                <h:outputLabel value="Type de slot" for="slotType" />
+                <h:selectOneMenu value="#{slotManager.slot.slotType}" converter="omnifaces.GenericEnumConverter" id="slotType">
+                    <f:selectItems value="#{slotManager.slotTypes}" />
+                </h:selectOneMenu>
+            </h:panelGrid>
+            <h:commandButton action="#{slotManager.createSlot()}" value="Créer" />
+        </h:form>         
+    </ui:define>
 </ui:composition>

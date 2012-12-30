@@ -15,8 +15,15 @@
 	<logger name="org.application">
 		<level value="debug" />
 	</logger>
+        
+        <logger name="org.openid4java">
+            <level value="debug" />
+        </logger>
 	
 
+    <logger name="fr.xebia.xke.jsfdemo">
+        <level value="debug" />
+    </logger>
 
 
 	<!-- Root Logger -->

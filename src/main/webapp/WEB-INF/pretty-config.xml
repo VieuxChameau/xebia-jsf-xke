@@ -6,12 +6,24 @@
     <url-mapping id="home">
         <pattern value="/home"/>
         <view-id value="/home.xhtml"/>
+        <action onPostback="false">#{slotManager.initList}</action>
     </url-mapping>
 
     <url-mapping id="createSlot">
-        <pattern value="/createSlot/#{languageBean.lang}"/>
-        <view-id value="/createSlot"/>
-        <action onPostback="false">#{languageBean.initLanguage}</action>
+        <pattern value="/slot/create"/>
+        <view-id value="/createSlot.xhtml"/>
+    </url-mapping>
+    
+    <url-mapping id="viewSlot">
+        <pattern value="/slot/view/#{slotId : slotManager.slotId}"/>
+        <view-id value="/viewSlot.xhtml"/>
+        <action onPostback="false">#{slotManager.initView}</action>
+    </url-mapping>
+    
+    <url-mapping id="editSlot">
+        <pattern value="/slot/edit/#{slotId : slotManager.slotId}"/>
+        <view-id value="/editSlot.xhtml"/>
+        <action onPostback="false">#{slotManager.initView}</action>
     </url-mapping>
 
 </pretty-config>

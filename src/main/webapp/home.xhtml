@@ -9,19 +9,34 @@
 
     <ui:define name="titlePage">#{messages['welcome.pageTitle']}</ui:define>
     <ui:define name="mainContent">
-        #{messages['welcome.title']} #{newJSFManagedBean.name}
+        Ici la liste des slots des 3 prochains mois
+        
+        <pou:dataTable value="#{slotManager.slots}" var="aSlot" >
+            <pou:column headerText="Titre">
+                <h:outputText value="#{aSlot.title}" />
+            </pou:column>
+            <pou:column headerText="Type">
+                <h:outputText value="#{aSlot.slotType}" />
+            </pou:column>
+            <pou:column headerText="Date">
+                <h:outputText value="#{aSlot.scheduleDate}" />
+            </pou:column>
+            <pou:column headerText="Durée">
+                <h:outputText value="#{aSlot.duration}" />
+            </pou:column>       
+        </pou:dataTable>
 
         <pou:separator />
 
-        <pretty:link mappingId="createSlot">
-            <f:param value="fr" />
-            Lien avec composant prettyfaces
-        </pretty:link>
-
-        <br />
-
-        <h:link outcome="pretty:createSlot" value="Lien avec composant h link">
-            <f:param value="en" />
-        </h:link>
+        <pou:panel header="Actions possibles">
+            <pretty:link mappingId="createSlot">
+                Creation d'un slot
+            </pretty:link>
+            <pou:separator />
+            <pretty:link mappingId="viewSlot">
+                <f:param value="5" />
+                Voir le détail d'un slot
+            </pretty:link>
+        </pou:panel>
     </ui:define>
 </ui:composition>
