@@ -1,8 +1,8 @@
-package fr.xebia.xke.jsfdemo.domain;
+package fr.xebia.xke.jsfdemo.entity;
+
+import fr.xebia.xke.jsfdemo.enums.SlotType;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

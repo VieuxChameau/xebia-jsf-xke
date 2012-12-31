@@ -1,6 +1,5 @@
-package fr.xebia.xke.jsfdemo.web;
+package fr.xebia.xke.jsfdemo.controller;
 
-import com.ocpsoft.pretty.PrettyContext;
 import org.openid4java.OpenIDException;
 import org.openid4java.consumer.ConsumerException;
 import org.openid4java.consumer.ConsumerManager;
@@ -85,7 +84,7 @@ public class OpenId implements Serializable {
     /**
      * Create an authentication request.
      * It performs a discovery on the user-supplied identifier. Attempt it to
-     * associate with the OpenID provider and retrieve one service endpoint
+     * associate with the OpenID provider and retrieve one dao endpoint
      * for authentication. It adds some attributes for exchange on the AuthRequest.
      * A List of all possible attributes can be found on @see http://www.axschema.org/types/
      *

@@ -1,4 +1,4 @@
-package fr.xebia.xke.jsfdemo.web;
+package fr.xebia.xke.jsfdemo.controller;
 
 
 import org.openid4java.consumer.ConsumerException;

@@ -1,4 +1,4 @@
-package fr.xebia.xke.jsfdemo.domain;
+package fr.xebia.xke.jsfdemo.entity;
 
 
 public class User {

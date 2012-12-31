@@ -1,30 +1,35 @@
-package fr.xebia.xke.jsfdemo.service;
+package fr.xebia.xke.jsfdemo.dao;
 
-import fr.xebia.xke.jsfdemo.domain.Slot;
-import java.util.List;
+import fr.xebia.xke.jsfdemo.entity.Slot;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Stateless
-public class SlotDao implements SlotService {
+public class SlotDao {
 
-    @PersistenceContext(unitName= "XkePU")
+    @PersistenceContext(unitName= "xke")
     private EntityManager entityManager;
 
-    @Override
-    public Slot getSlotById(String slotId) {
+    public Slot getById(String slotId) {
         return entityManager.createNamedQuery("Slot.getSlotById", Slot.class).setParameter("slotId", slotId).getSingleResult();
     }
 
-    @Override
-    public List<Slot> listSlots() {
+    public List<Slot> getAll() {
         return entityManager.createNamedQuery("Slot.listAll", Slot.class).getResultList();
     }
 
-
-    @Override
-    public void createSlot(Slot slot) {
+    public void create(Slot slot) {
         entityManager.persist(slot);
+    }
+
+    public Slot update(Slot slot) {
+        return entityManager.merge(slot);
+    }
+
+    public void delete(Slot slot) {
+        entityManager.remove(slot);
     }
 }

@@ -1,0 +1,50 @@
+/*
+    PERSONAL CSS, extends twitter bootstrap css
+*/
+
+body {
+    padding-top: 60px;
+}
+
+.logoxebia {
+    margin-bottom: 20px;
+}
+
+#authors {
+  	padding-bottom: 3px;
+}
+
+.comment {
+    color: #000000;
+}
+
+.comment_date {
+    float: right;
+    font-style: italic;
+}
+
+.signin {
+    margin-left: auto;
+    margin-right: auto;
+    width: 460px;
+}
+
+.invisible {
+    display: none;
+}
+
+/*
+ ------------------------------------------------------------
+ -- Modifications effectuées dans le fichier bootstrap.css --
+ ------------------------------------------------------------
+
+ --  1. Mise en commentaire du style des balises <p> dans <blockquote> :
+    blockquote p {
+      margin-bottom: 0;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 22.5px;
+    }
+    Pourquoi? car je souhaite garder la même police partout et l'éditeur CKEditor rajoute une balise <p>
+    dans chaque description ce qui modifie la police à l'affichage.
+*/

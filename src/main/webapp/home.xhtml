@@ -5,13 +5,10 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:pou="http://primefaces.org/ui"
                 xmlns:pretty="http://ocpsoft.com/prettyfaces"
-                template="/WEB-INF/templates/template.xhtml">
+                template="template/main.xhtml">
 
-    <ui:define name="titlePage">#{messages['welcome.pageTitle']}</ui:define>
-    <ui:define name="mainContent">
-        Ici la liste des slots des 3 prochains mois
-        
-        <pou:dataTable value="#{slotManager.slots}" var="aSlot" >
+    <ui:define name="content">
+        <pou:dataTable value="#{slotController.slots}" var="aSlot" >
             <pou:column headerText="Titre">
                 <h:outputText value="#{aSlot.title}" />
             </pou:column>

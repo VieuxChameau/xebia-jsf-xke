@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+                template="/template/main.xhtml">
+
+    <ui:define name="content">
+        <h:form id="new_slot" acceptcharset="UTF-8">
+            <fieldset>
+                <!-- Title -->
+                <div class="clearfix">
+                    <h:outputLabel value="#{messages['slot.title.label']}" for="title" styleClass="control-label"/>
+                    <div class="input">
+                        <h:inputText id="title" value="#{slotController.slot.title}" size="30" styleClass="span12"/>
+                        <span class='help-inline'>
+                            <h:message for="title"/>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="clearfix">
+                    <h:outputLabel value="#{messages['slot.description.label']}" for="description" styleClass="control-label"/>
+                    <div class="input">
+                        <h:inputTextarea id="description" value="#{slotController.slot.description}" rows="20" cols="40"/>
+                        <span class="help-block">
+                            <h:outputText value="#{messages['slot.description.help']}" />
+                        </span>
+                        <span class='help-inline'>
+                            <h:message for="description"/>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Video -->
+                <div class="clearfix">
+                    <h:outputLabel value="#{messages['slot.videoCastAccepted.label']}" for="video" styleClass="control-label"/>
+                    <div class="input">
+                        <h:selectBooleanCheckbox id="video" value="#{slotController.slot.videoAccepted}"  />
+                        <span class='help-inline'>
+                            <h:message for="video"/>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Duration -->
+                <div class="clearfix">
+                    <h:outputLabel value="#{messages['slot.duration.label']}" for="duration" styleClass="control-label"/>
+                    <div class="input">
+                        <h:selectOneMenu id="duration" value="#{slotController.slot.duration}">
+                            <f:selectItem itemLabel="#{messages['default.select.prompt']}" itemValue="" />
+                            <f:selectItems value="#{slotController.slotDurations}" var="duration" itemLabel="#{duration}" itemValue="#{duration}"/>
+                        </h:selectOneMenu>
+                        <span class='help-inline'>
+                            <h:message for="duration"/>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Type -->
+                <div class="clearfix">
+                    <h:outputLabel value="#{messages['slot.type.label']}" for="type" styleClass="control-label"/>
+                    <div class="input">
+                        <h:selectOneMenu id="type" value="#{slotController.slot.slotType}">
+                            <f:selectItem itemLabel="#{messages['default.select.prompt']}" itemValue="" />
+                            <f:selectItems value="#{slotController.slotTypes}" var="type" itemLabel="#{type}" itemValue="#{type}"/>
+                        </h:selectOneMenu>
+                        <span class='help-inline'>
+                            <h:message for="type"/>
+                        </span>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Actions -->
+            <div class="actions">
+                <h:commandButton value="#{messages['default.button.create.label']}" styleClass="btn primary" action="#{slotController.create()}" rendered="#{empty slotController.slotId}" />
+                <h:commandButton value="#{messages['default.button.update.label']}" styleClass="btn primary" action="#{slotController.update()}" rendered="#{!empty slotController.slotId}" />
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

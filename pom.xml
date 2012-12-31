@@ -41,34 +41,25 @@
     </developers>
 
     <properties>
-        <!-- Build -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.7</java.version>
-        <wtp.version>2.0</wtp.version>
-
         <hsqldb.version>1.8.0.10</hsqldb.version>
-
-        <!-- Log -->
         <log4j.version>1.2.13</log4j.version>
         <slf4j.version>1.6.4</slf4j.version>
-
         <guava.version>11.0.1</guava.version>
-
-        <!-- JSF lib -->
         <primefaces.version>3.4.2</primefaces.version>
         <prettyfaces-jsf2.version>3.3.3</prettyfaces-jsf2.version>
         <omnifaces.version>1.2</omnifaces.version>
-
-        <!-- Primefaces Dependencies -->
         <commons-fileupload.version>1.2.1</commons-fileupload.version>
         <commons-io.version>1.4</commons-io.version>
         <poi.version>3.7</poi.version>
         <itext.version>2.1.7</itext.version>
-        <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
+        <hibernate.version>4.1.9.Final</hibernate.version>
     </properties>
 
     <dependencies>
 
+        <!-- OpenID -->
         <dependency>
             <groupId>org.openid4java</groupId>
             <artifactId>openid4java-consumer</artifactId>
@@ -76,6 +67,7 @@
             <type>pom</type>
         </dependency>
 
+        <!-- JEE -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
@@ -136,7 +128,6 @@
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
@@ -150,23 +141,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.sun.jdmk</groupId>
-                    <artifactId>jmxtools</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.sun.jmx</groupId>
-                    <artifactId>jmxri</artifactId>
-                </exclusion>
-            </exclusions>
-            <scope>runtime</scope>
-        </dependency>
-
         <!-- Guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -174,16 +148,21 @@
             <version>${guava.version}</version>
         </dependency>
 
+        <!-- Hibernate -->
         <dependency>
-            <groupId>hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <version>${hsqldb.version}</version>
-            <scope>runtime</scope>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>xebia-jsf-xke</finalName>
+        <finalName>xke</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -193,19 +172,11 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
-            <!-- <plugin>
+            <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <version>7.3.Final</version>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>-->
+            </plugin>
         </plugins>
     </build>
 
@@ -234,7 +205,6 @@
             <layout>default</layout>
         </repository>
 
-        <!-- Prime faces -->
         <repository>
             <id>prime-repo</id>
             <name>PrimeFaces Maven Repository</name>

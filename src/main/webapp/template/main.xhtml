@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>#{messages['menu.app.name']}</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml"/>
+
+    <!-- CSS -->
+    <h:outputStylesheet name="css/application.css"/>
+    <h:outputStylesheet name="css/error.css"/>
+    <h:outputStylesheet name="css/bootstrap.css" media="screen" />
+
+    <!-- JS -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <h:outputScript name="js/application.js"/>
+    <h:outputScript name="js/bootstrap.js"/>
+    <h:outputScript name="js/bootstrap-modal.js"/>
+    <h:outputScript name="js/bootstrap-alert.js"/>
+    <h:outputScript name="js/bootstrap-dropdown.js"/>
+    <h:outputScript name="js/rating_ballot.js"/>
+</h:head>
+
+<h:body id="body" style="padding-top: 60px;">
+    <!-- Header -->
+    <header>
+        <div class="topbar" data-dropdown="dropdown">
+            <div class="fill">
+                <div class="container">
+                    <h:link value="#{messages['menu.app.name']}" outcome="/home" styleClass="brand"/>
+                    <ul class="nav">
+                        <li class="menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">#{messages['menu.slots.label']}<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><h:link value="#{messages['menu.slots.new.slot.label']}" outcome="pretty:createSlot"/><i class="icon-pencil"></i></li>
+                                <li><h:link value="#{messages['menu.slots.view.slots.label']}" outcome="/home"/><i class="icon-pencil"></i></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="pull-right">
+                        <h:outputText value="#{messages['menu.loggedin.message']}"/>
+                        <h:commandLink action="#{openid.logout}">
+                            <i class="icon-off icon-white"></i>
+                        </h:commandLink>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <section id="content" class="container">
+        <ui:insert name="content"/>
+    </section>
+
+    <!-- Footer -->
+    <footer class="container">
+        <p>#{messages['footer']}</p>
+    </footer>
+</h:body>
+</html>
