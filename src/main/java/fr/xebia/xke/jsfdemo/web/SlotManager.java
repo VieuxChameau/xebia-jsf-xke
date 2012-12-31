@@ -2,7 +2,6 @@ package fr.xebia.xke.jsfdemo.web;
 
 import fr.xebia.xke.jsfdemo.domain.Slot;
 import fr.xebia.xke.jsfdemo.domain.SlotType;
-import fr.xebia.xke.jsfdemo.service.SlotDao;
 import fr.xebia.xke.jsfdemo.service.SlotService;
 import java.io.Serializable;
 import java.util.List;
@@ -16,9 +15,8 @@ public class SlotManager implements Serializable {
 
     private static final SlotType[] SLOT_TYPES = SlotType.values();
 
-    // TODO à passer en inject
-    //@Inject
-    private SlotService slotService = new SlotDao();
+    @Inject
+    private SlotService slotService;
 
     private String slotId;
 
@@ -27,7 +25,7 @@ public class SlotManager implements Serializable {
     private List<Slot> slots;
 
     public void initList() {
-        
+
         slots = slotService.listSlots();
     }
 
@@ -38,7 +36,7 @@ public class SlotManager implements Serializable {
     }
 
     public String createSlot() {
-        
+
         slotService.createSlot(slot);
         slot = new Slot();
         return null;

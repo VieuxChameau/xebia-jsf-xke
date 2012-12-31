@@ -46,21 +46,18 @@
         <java.version>1.7</java.version>
         <wtp.version>2.0</wtp.version>
 
+        <hsqldb.version>1.8.0.10</hsqldb.version>
+
         <!-- Log -->
         <log4j.version>1.2.13</log4j.version>
         <slf4j.version>1.6.4</slf4j.version>
 
         <guava.version>11.0.1</guava.version>
 
-        <!-- Servlet et pages -->
-        <mojarra.version>2.1.13</mojarra.version>
-        <jboss-el.version>2.0.1.GA</jboss-el.version>
-        <jstl.version>1.2</jstl.version>
-        <servlet-api.version>2.5</servlet-api.version>
+        <!-- JSF lib -->
         <primefaces.version>3.4.2</primefaces.version>
-        <!--<primefaces.theme.version>1.0.3</primefaces.theme.version>-->
-        <!--<prettyfaces-jsf2.version>3.3.2</prettyfaces-jsf2.version>-->
         <prettyfaces-jsf2.version>3.3.3</prettyfaces-jsf2.version>
+        <omnifaces.version>1.2</omnifaces.version>
 
         <!-- Primefaces Dependencies -->
         <commons-fileupload.version>1.2.1</commons-fileupload.version>
@@ -78,7 +75,6 @@
             <version>0.9.6</version>
             <type>pom</type>
         </dependency>
-
 
         <dependency>
             <groupId>javax</groupId>
@@ -131,7 +127,7 @@
         <dependency>
             <groupId>org.omnifaces</groupId>
             <artifactId>omnifaces</artifactId>
-            <version>1.2</version>
+            <version>${omnifaces.version}</version>
         </dependency>
 
         <!-- logging -->
@@ -177,6 +173,13 @@
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>${hsqldb.version}</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -216,7 +219,7 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-        
+
         <repository>
             <id>maven-repository.dev.java.net</id>
             <name>Java.net Repository for Maven 1</name>

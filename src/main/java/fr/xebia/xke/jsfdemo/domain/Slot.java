@@ -2,6 +2,7 @@ package fr.xebia.xke.jsfdemo.domain;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,8 +13,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @NamedQueries({
-    @NamedQuery(name = "Slot.listAll", query = "from Slot"),
-    @NamedQuery(name = "Slot.getSlotById", query = "from Slot s WHERE s.id = :slotId")})
+    @NamedQuery(name = "Slot.listAll", query = "SELECT s from Slot s"),
+    @NamedQuery(name = "Slot.getSlotById", query = "SELECT s FROM Slot s WHERE s.id = :slotId")})
 @Entity
 public class Slot {
 
@@ -32,7 +33,7 @@ public class Slot {
 
     private String duration;
     //private User author;
-    //private List<User> speakers;
+    //private Set<User> speakers;
 
     private SlotType slotType;
     //private String file;

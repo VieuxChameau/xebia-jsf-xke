@@ -2,12 +2,14 @@ package fr.xebia.xke.jsfdemo.service;
 
 import fr.xebia.xke.jsfdemo.domain.Slot;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+@Stateless
 public class SlotDao implements SlotService {
 
-    @PersistenceContext
+    @PersistenceContext(unitName= "XkePU")
     private EntityManager entityManager;
 
     @Override
@@ -19,6 +21,7 @@ public class SlotDao implements SlotService {
     public List<Slot> listSlots() {
         return entityManager.createNamedQuery("Slot.listAll", Slot.class).getResultList();
     }
+
 
     @Override
     public void createSlot(Slot slot) {
