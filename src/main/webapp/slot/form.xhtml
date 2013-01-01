@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
                 template="/template/main.xhtml">
 
     <ui:define name="content">
@@ -22,7 +23,7 @@
                 <div class="clearfix">
                     <h:outputLabel value="#{messages['slot.description.label']}" for="description" styleClass="control-label"/>
                     <div class="input">
-                        <h:inputTextarea id="description" value="#{slotController.slot.description}" rows="20" cols="40"/>
+                        <h:inputTextarea id="description" value="#{slotController.slot.description}" rows="20" cols="40" style="width: 690px"/>
                         <span class="help-block">
                             <h:outputText value="#{messages['slot.description.help']}" />
                         </span>
@@ -39,6 +40,17 @@
                         <h:selectBooleanCheckbox id="video" value="#{slotController.slot.videoAccepted}"  />
                         <span class='help-inline'>
                             <h:message for="video"/>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Type -->
+                <div class="clearfix">
+                    <h:outputLabel value="#{messages['slot.wishedDate.label']}" for="scheduleDate" styleClass="control-label"/>
+                    <div class="input">
+                        <p:calendar id="scheduleDate" value="#{slotController.slot.scheduleDate}" showOn="button" />
+                        <span class='help-inline'>
+                            <h:message for="scheduleDate"/>
                         </span>
                     </div>
                 </div>

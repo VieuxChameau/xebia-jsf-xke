@@ -1,19 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
-                template="/WEB-INF/templates/template.xhtml">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:xke="http://java.sun.com/jsf/composite/xke"
+                template="/template/main.xhtml">
 
-    <ui:define name="titlePage">#{messages['createslot.pageTitle']}</ui:define>
-    <ui:define name="mainContent">
-        <h:form >
+    <ui:define name="content">
+        <f:subview id="view_slot" rendered="#{slotController.slot != null}">
+            <h:panelGrid columns="2">
+                <h:outputText value="#{messages['slot.title.label']}"/>
+                <h:outputText value="#{slotController.slot.title}"/>
 
-        </h:form>
+                <h:outputText value="#{messages['slot.description.label']}"/>
+                <h:outputText value="#{slotController.slot.description}"/>
 
-        Vue d'un slot en mode détail
+                <h:outputText value="#{messages['slot.videoCastAccepted.label']}"/>
+                <xke:outputBoolean value="#{slotController.slot.videoAccepted}" />
 
+                <h:outputText value="#{messages['slot.duration.label']}"/>
+                <h:outputText value="#{slotController.slot.duration}"/>
 
-
+                <h:outputText value="#{messages['slot.type.label']}"/>
+                <h:outputText value="#{slotController.slot.slotType}"/>
+            </h:panelGrid>
+        </f:subview>
     </ui:define>
+
 </ui:composition>

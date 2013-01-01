@@ -1,4 +1,3 @@
-<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
@@ -6,21 +5,17 @@
 
 <h:head>
     <title>#{messages['menu.app.name']}</title>
-    <meta charset="utf-8"/>
-    <meta http-equiv="Content-Type" content="application/xhtml+xml"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <!-- CSS -->
     <h:outputStylesheet name="css/application.css"/>
     <h:outputStylesheet name="css/error.css"/>
-    <h:outputStylesheet name="css/bootstrap.css" media="screen" />
+    <h:outputStylesheet name="css/bootstrap.css"/>
 
     <!-- JS -->
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <h:outputScript name="jquery/jquery.js" library="primefaces" />
     <h:outputScript name="js/application.js"/>
     <h:outputScript name="js/bootstrap.js"/>
-    <h:outputScript name="js/bootstrap-modal.js"/>
-    <h:outputScript name="js/bootstrap-alert.js"/>
-    <h:outputScript name="js/bootstrap-dropdown.js"/>
     <h:outputScript name="js/rating_ballot.js"/>
 </h:head>
 

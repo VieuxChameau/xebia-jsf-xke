@@ -18,7 +18,7 @@ public class SlotDao {
     }
 
     public List<Slot> getAll() {
-        return entityManager.createNamedQuery("Slot.listAll", Slot.class).getResultList();
+        return entityManager.createNamedQuery("Slot.getAll", Slot.class).getResultList();
     }
 
     public void create(Slot slot) {

@@ -1,0 +1,20 @@
+<f:subview xmlns="http://www.w3.org/1999/xhtml"
+           xmlns:h="http://java.sun.com/jsf/html"
+           xmlns:f="http://java.sun.com/jsf/core"
+           template="/template/main.xhtml"
+           id="random_slot"
+           rendered="#{slotController.randomSlot != null}">
+
+    <div class="hero-unit">
+        <h3 id="authors">
+            <h:outputText value="#{slotController.randomSlot.title}"/>
+            <br/>
+            <small> by <h:outputText value="#{slotController.randomSlot.author}"/></small>
+        </h3>
+        <p class="description"><h:outputText value="#{slotController.randomSlot.description}"/></p>
+        <h:link value="#{messages['slot.learn.more']}" styleClass="btn primary large" outcome="pretty:viewSlot">
+            <f:param name="slotId" value="#{slotController.randomSlot.id}"/>
+        </h:link>
+    </div>
+
+</f:subview>
