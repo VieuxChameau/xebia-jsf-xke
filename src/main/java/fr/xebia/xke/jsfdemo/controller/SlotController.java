@@ -32,15 +32,6 @@ public class SlotController implements Serializable {
     private Slot slot;
     private List<Slot> slots;
 
-    @PostConstruct
-    public void init() {
-        if (slotId != null) {
-            slot = slotDao.getById(slotId);
-        } else {
-            slot = new Slot();
-        }
-    }
-
     public String create() {
         slotDao.create(slot);
         return "pretty:home";
@@ -65,6 +56,11 @@ public class SlotController implements Serializable {
     }
 
     public Slot getSlot() {
+        if (slotId != null) {
+            slot = slotDao.getById(Integer.parseInt(slotId));
+        } else if (slot == null) {
+            slot = new Slot();
+        }
         return slot;
     }
 

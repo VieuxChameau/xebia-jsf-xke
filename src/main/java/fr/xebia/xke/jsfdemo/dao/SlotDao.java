@@ -13,7 +13,7 @@ public class SlotDao {
     @PersistenceContext(unitName= "xke")
     private EntityManager entityManager;
 
-    public Slot getById(String slotId) {
+    public Slot getById(int slotId) {
         return entityManager.createNamedQuery("Slot.getSlotById", Slot.class).setParameter("slotId", slotId).getSingleResult();
     }
 

@@ -162,7 +162,7 @@
     </dependencies>
 
     <build>
-        <finalName>xke</finalName>
+        <finalName>xebia-jsf-xke</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

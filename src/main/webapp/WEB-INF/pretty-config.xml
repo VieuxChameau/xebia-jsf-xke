@@ -14,13 +14,13 @@
     </url-mapping>
     
     <url-mapping id="viewSlot">
-        <pattern value="/slots/#{slotId : slotManager.slotId}"/>
+        <pattern value="/slots/#{slotId : slotController.slotId}"/>
         <view-id value="/slot/view.xhtml"/>
     </url-mapping>
     
     <url-mapping id="editSlot">
-        <pattern value="/slots/edit/#{slotId : slotManager.slotId}"/>
-        <view-id value="/slots/form.xhtml"/>
+        <pattern value="/slots/edit/#{slotId : slotController.slotId}"/>
+        <view-id value="/slot/form.xhtml"/>
     </url-mapping>
 
 </pretty-config>
