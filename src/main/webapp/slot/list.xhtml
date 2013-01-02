@@ -1,0 +1,26 @@
+<f:subview xmlns="http://www.w3.org/1999/xhtml"
+           xmlns:f="http://java.sun.com/jsf/core"
+           xmlns:ui="http://java.sun.com/jsf/facelets"
+           xmlns:h="http://java.sun.com/jsf/html"
+           xmlns:xke="http://java.sun.com/jsf/composite/xke"
+           xmlns:p="http://primefaces.org/ui"
+           id="list_slot">
+
+    <ui:repeat id="repeat" value="#{slotController.slotsByYearMonth.keySet().toArray()}" var="yearMonthKey">
+        <section>
+            <div class="page-header">
+                <h2>
+                    <h:outputText value="#{yearMonthKey.toLocalDate(2).toDate()}">
+                        <f:convertDateTime pattern="MMMMMMMMMM, yyyy"/>
+                    </h:outputText>
+                </h2>
+            </div>
+            <p:dataGrid id="grid" var="slot" value="#{slotController.slotsByYearMonth[yearMonthKey]}" columns="3">
+                <p:panel id="panel">
+                    <xke:slotBlock slot="#{slot}"/>
+                </p:panel>
+            </p:dataGrid>
+        </section>
+    </ui:repeat>
+
+</f:subview>

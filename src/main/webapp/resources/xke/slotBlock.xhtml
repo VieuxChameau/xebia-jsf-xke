@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:of="http://omnifaces.org/functions">
+
+    <cc:interface name="slotBlock" displayName="Bloc to display a slot"
+                  preferred="true" expert="false" shortDescription="Bloc to display a slot">
+        <cc:attribute type="fr.xebia.xke.jsfdemo.entity.Slot" name="slot" required="true"/>
+    </cc:interface>
+
+    <cc:implementation>
+        <f:subview id="#{cc.attrs.slot.id}_bloc">
+            <h5 class="description">
+                <span class="label notice">Scheduled</span>
+                <span><h:outputText value="#{cc.attrs.slot.title}"/></span>
+            </h5>
+            <blockquote>
+                <p class="description"><h:outputText value="#{cc.attrs.slot.description}"/></p>
+                <small>
+                    <h:outputText value="#{cc.attrs.slot.slotType}"/> - <h:outputText value="#{of:abbreviate(cc.attrs.slot.duration, 240)}"/>
+                    <span class="pull-right">0 comment</span>
+                </small>
+            </blockquote>
+            <p>
+                <h:link value="#{messages['slot.grid.view.slot.detail']}" styleClass="btn" outcome="pretty:viewSlot">
+                    <f:param name="slotId" value="#{cc.attrs.slot.id}"/>
+                </h:link>
+                <span class="pull-right">
+                    <span class="label important">Rate it!</span>
+                </span>
+            </p>
+        </f:subview>
+    </cc:implementation>
+</html>

@@ -11,7 +11,7 @@ body {
 }
 
 #authors {
-  	padding-bottom: 3px;
+    padding-bottom: 3px;
 }
 
 .comment {
@@ -33,18 +33,19 @@ body {
     display: none;
 }
 
-/*
- ------------------------------------------------------------
- -- Modifications effectuées dans le fichier bootstrap.css --
- ------------------------------------------------------------
+.description {
+    text-align: justify;
+}
 
- --  1. Mise en commentaire du style des balises <p> dans <blockquote> :
-    blockquote p {
-      margin-bottom: 0;
-      font-size: 16px;
-      font-weight: 300;
-      line-height: 22.5px;
-    }
-    Pourquoi? car je souhaite garder la même police partout et l'éditeur CKEditor rajoute une balise <p>
-    dans chaque description ce qui modifie la police à l'affichage.
-*/
+#content .ui-datagrid-column {
+    width: 30%;
+}
+
+#content .ui-datagrid-content, #content .ui-panel, #content .ui-datagrid-column, #content .ui-datagrid-data {
+    border: 0;
+}
+
+#content .ui-datagrid-column h5 {
+    line-height: 150%;
+    margin-bottom: 1em;
+}

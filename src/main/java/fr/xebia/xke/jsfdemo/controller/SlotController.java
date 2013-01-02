@@ -3,15 +3,13 @@ package fr.xebia.xke.jsfdemo.controller;
 import fr.xebia.xke.jsfdemo.dao.SlotDao;
 import fr.xebia.xke.jsfdemo.entity.Slot;
 import fr.xebia.xke.jsfdemo.enums.SlotType;
+import org.joda.time.YearMonth;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -31,20 +29,27 @@ public class SlotController implements Serializable {
     private String slotId;
     private Slot slot;
     private List<Slot> slots;
+    private Map<YearMonth, List<Slot>> slotsByYearMonth;
+    private Slot randomSlot;
 
     public String create() {
-        slotDao.create(slot);
+        slotDao.create(getSlot());
         return "pretty:home";
     }
 
     public String update() {
-        slotDao.update(slot);
+        slotDao.update(getSlot());
         return "pretty:home";
     }
 
-    public String deleteSlot() {
-        slotDao.delete(slot);
-        return "pretty:home";
+    public Slot getRandomSlot() {
+        if (randomSlot == null) {
+            List<Slot> slots = getSlots();
+            if (!slots.isEmpty()) {
+                randomSlot = slots.get(new Random().nextInt(slots.size()));
+            }
+        }
+        return randomSlot;
     }
 
     public String getSlotId() {
@@ -56,16 +61,14 @@ public class SlotController implements Serializable {
     }
 
     public Slot getSlot() {
-        if (slotId != null) {
-            slot = slotDao.getById(Integer.parseInt(slotId));
-        } else if (slot == null) {
-            slot = new Slot();
+        if (slot == null) {
+            if (slotId != null) {
+                slot = slotDao.getById(Integer.parseInt(slotId));
+            } else {
+                slot = new Slot();
+            }
         }
         return slot;
-    }
-
-    public void setSlot(Slot slot) {
-        this.slot = slot;
     }
 
     public List<Slot> getSlots() {
@@ -73,6 +76,23 @@ public class SlotController implements Serializable {
             slots = slotDao.getAll();
         }
         return slots;
+    }
+
+    public Map<YearMonth, List<Slot>> getSlotsByYearMonth() {
+        if (slotsByYearMonth == null) {
+            slotsByYearMonth = new TreeMap<>();
+            for (Slot slot : getSlots()) {
+                YearMonth yearMonth = new YearMonth(slot.getScheduleDate());
+                if (slotsByYearMonth.containsKey(yearMonth)) {
+                    List<Slot> list = slotsByYearMonth.get(yearMonth);
+                    list.add(slot);
+                    slotsByYearMonth.put(yearMonth, list);
+                } else {
+                    slotsByYearMonth.put(yearMonth, newArrayList(slot));
+                }
+            }
+        }
+        return slotsByYearMonth;
     }
 
     public List<String> getSlotDurations() {

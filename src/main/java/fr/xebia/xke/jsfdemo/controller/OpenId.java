@@ -50,10 +50,11 @@ public class OpenId implements Serializable {
     @PostConstruct
     public void initDefaultUser() {
         connectedUser = new User();
-        getConnectedUser().setId(1);
-        getConnectedUser().setEmail("jdoe@xebia.fr");
-        getConnectedUser().setFirstName("John");
-        getConnectedUser().setLastName("DOE");
+        connectedUser.setId(1);
+        connectedUser.setEmail("jdoe@xebia.fr");
+        connectedUser.setFirstName("John");
+        connectedUser.setLastName("DOE");
+        connectedUser.setAdministrator(true);
     }
 
     public String login() throws IOException {
