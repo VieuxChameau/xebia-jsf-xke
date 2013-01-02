@@ -1,22 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <html>
     <head>
         <meta http-equiv="Refresh" content="0; URL=home" />
     </head>
 </html>
-<!-- Tentative pour le sso
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Tentative pour le sso -->
+<!--<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html">
-<h:head>
-    <title>Facelet Title</title>
-</h:head>
-<h:body>
-    <h:form>
-        <h:outputLabel for="openid">Open ID</h:outputLabel>
-        <h:inputText id="openid_identifier" value="#{openid.userSuppliedId}"
-                     style="background: url(http://openid.net/login-bg.gif) no-repeat; padding-left: 18px; background-position: 0 50%;" />
-        <h:commandButton action="openid.login" value="Login" id="openid"/>
-    </h:form>
-</h:body>
-</html>-->
+    <h:head>
+        <title>XKE</title>
+        <meta charset="utf-8"/>
+        <h:outputStylesheet name="css/application.css"/>
+        <h:outputStylesheet name="css/error.css"/>
+
+        <h:outputStylesheet name="css/application.css"/>
+        <h:outputStylesheet name="css/error.css"/>
+        <h:outputStylesheet name="css/bootstrap.css" media="screen" />
+    </h:head>
+    <h:body style="padding-top: 60px;">
+        <div class="container">
+            <div class="signin">
+                <h:form>
+                    <fieldset class="span9">
+                        <h:outputLink value="http://www.xebia.fr">
+                            <h:graphicImage library="img" name="xebia-large.gif" style="margin-bottom: 30px;" title="Xebia"/>
+                        </h:outputLink>
+                        <div class="clearfix" >
+                            <h:outputLabel for="openid_identifier" class="label_td">#{messages['springSecurity.login.title']}</h:outputLabel>
+
+                            <div class="input">
+                                <div class="input-prepend">
+                                    <h:inputText id="openid_identifier" value="#{openid.userSuppliedId}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <h:commandButton action="openid.login" value="#{messages['springSecurity.login.button']}"/>
+                        </div>
+                    </fieldset>
+                </h:form>
+            </div>
+        </div>
+    </h:body>
+</html>
+-->

@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
     <title>#{messages['menu.app.name']}</title>
@@ -41,8 +42,10 @@
                         </li>
                     </ul>
                     <p class="pull-right">
-                        <h:outputText value="#{messages['menu.loggedin.message']}"/>
-                        <h:commandLink action="#{openid.logout}">
+                        <h:outputFormat value="#{messages['menu.loggedin.message']}">
+                            <f:param value="#{openid.connectedUser.fullName}"/>
+                        </h:outputFormat>
+                            <h:commandLink action="#{openid.logout}">
                             <i class="icon-off icon-white"></i>
                         </h:commandLink>
                     </p>

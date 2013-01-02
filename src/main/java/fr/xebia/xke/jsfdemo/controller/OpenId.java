@@ -1,5 +1,16 @@
 package fr.xebia.xke.jsfdemo.controller;
 
+import fr.xebia.xke.jsfdemo.entity.User;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
+import javax.servlet.http.HttpServletRequest;
 import org.openid4java.OpenIDException;
 import org.openid4java.consumer.ConsumerException;
 import org.openid4java.consumer.ConsumerManager;
@@ -15,22 +26,14 @@ import org.openid4java.message.ax.FetchResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.List;
-import javax.faces.event.ComponentSystemEvent;
-
 @ManagedBean(name = "openid")
 @SessionScoped
 public class OpenId implements Serializable {
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenId.class);
+
+    private User connectedUser;
 
     private String userSuppliedId; //Users OpenID URL
     private String validatedId;
@@ -39,11 +42,19 @@ public class OpenId implements Serializable {
     private String openIdFirstName;
     private String openIdLastName;
     private String openIdCountry;
-    private String onLoad;
     private ConsumerManager manager;
     private DiscoveryInformation discovered;
 
-    public  OpenId() {}
+
+    // temporaire le temps de faire fonctionner le SSO
+    @PostConstruct
+    public void initDefaultUser() {
+        connectedUser = new User();
+        getConnectedUser().setId(1);
+        getConnectedUser().setEmail("jdoe@xebia.fr");
+        getConnectedUser().setFirstName("John");
+        getConnectedUser().setLastName("DOE");
+    }
 
     public String login() throws IOException {
 
@@ -100,7 +111,7 @@ public class OpenId implements Serializable {
             AuthRequest authReq = manager.authenticate(discovered, returnToUrl);
 
             FetchRequest fetch = FetchRequest.createFetchRequest();
-            
+
             fetch.addAttribute("email", "http://axschema.org/contact/email", true);
             //fetch.addAttribute("email", "http://schema.openid.net/contact/email", true);
             fetch.addAttribute("FirstName", "http://schema.openid.net/namePerson/first", true);
@@ -119,7 +130,7 @@ public class OpenId implements Serializable {
     public void verify() {
         ExternalContext context = javax.faces.context.FacesContext
                 .getCurrentInstance().getExternalContext();
-        
+
         HttpServletRequest request = (HttpServletRequest) context.getRequest();
         setValidatedId(verifyResponse(request));
     }
@@ -161,13 +172,13 @@ public class OpenId implements Serializable {
                 LOGGER.debug("Mode {}", authSuccess.getMode());
                 LOGGER.debug("Signlist {}", authSuccess.getSignList());
                 LOGGER.debug("Required Field {}", authSuccess.getRequiredFields());
-                
+
                 if (authSuccess.hasExtension(AxMessage.OPENID_NS_AX)) {
                     LOGGER.debug("Authentication suceed");
                     FetchResponse fetchResp = (FetchResponse) authSuccess.getExtension(AxMessage.OPENID_NS_AX);
 
                     List emails = fetchResp.getAttributeValues("email");
-                    
+
                     setOpenIdEmail((String) emails.get(0));
 
                 }
@@ -189,10 +200,6 @@ public class OpenId implements Serializable {
         verify();
         LOGGER.debug("Validated id {}", validatedId);
         return "pretty:home";
-    }
-
-    public void setOnLoad(String onLoad) {
-        this.onLoad = onLoad;
     }
 
     public String getUserSuppliedId() {
@@ -249,6 +256,13 @@ public class OpenId implements Serializable {
 
     public void setOpenIdCountry(String openIdCountry) {
         this.openIdCountry = openIdCountry;
+    }
+
+    /**
+     * @return the connectedUser
+     */
+    public User getConnectedUser() {
+        return connectedUser;
     }
 
 
