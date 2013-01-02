@@ -12,13 +12,14 @@
             <property name="hibernate.connection.url" value="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1" />
             <property name="hibernate.connection.username" value="sa"/>
             <property name="hibernate.connection.password" value="sa" />
-            <property name="hibernate.hbm2ddl.auto" value="update" />
-            <property name="hibernate.show_sql" value="false" />
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
             <property name="hibernate.cache.use_query_cache" value="false" />
             <property name="hibernate.connection.autocommit" value="true"/>
             <property name="hibernate.max_fetch_depth" value="0" />
             <property name="hibernate.cache.use_second_level_cache" value="true" />
+            <property name="hibernate.hbm2ddl.import_files" value="sql/slot.sql" />
         </properties>
     </persistence-unit>
 
