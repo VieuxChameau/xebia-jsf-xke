@@ -4,11 +4,8 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:xke="http://java.sun.com/jsf/composite/xke"
                 template="/template/main.xhtml">
-<<<<<<< HEAD
 
     <ui:define name="titlePage">#{messages['createslot.pageTitle']}</ui:define>
-=======
->>>>>>> e3cb67cebd2ad6e5281192e2718f4252fcdc5cea
 
     <ui:define name="content">
         <f:subview id="view_slot" rendered="#{slotController.slot != null}">
@@ -26,11 +23,7 @@
                 <h:outputText value="#{slotController.slot.duration}"/>
 
                 <h:outputText value="#{messages['slot.type.label']}"/>
-<<<<<<< HEAD
                 <h:outputText value="#{slotMsg[slotController.slot.slotType]}"/>
-=======
-                <h:outputText value="#{slotController.slot.slotType}"/>
->>>>>>> e3cb67cebd2ad6e5281192e2718f4252fcdc5cea
             </h:panelGrid>
         </f:subview>
     </ui:define>

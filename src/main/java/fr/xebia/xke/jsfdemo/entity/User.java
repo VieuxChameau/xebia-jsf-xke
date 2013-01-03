@@ -2,32 +2,21 @@ package fr.xebia.xke.jsfdemo.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-<<<<<<< HEAD
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @NamedQueries({
     @NamedQuery(name = "User.getUserById", query = "SELECT u FROM User u WHERE u.id = :userId")})
-=======
-
->>>>>>> e3cb67cebd2ad6e5281192e2718f4252fcdc5cea
 @Entity
 public class User {
 
     @Id
     private Integer id;
-
     private String firstName;
-
     private String lastName;
-
     private String email;
-
-<<<<<<< HEAD
     private boolean administrator;
 
-=======
->>>>>>> e3cb67cebd2ad6e5281192e2718f4252fcdc5cea
     public Integer getId() {
         return id;
     }
@@ -59,7 +48,6 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-<<<<<<< HEAD
 
     public boolean isAdministrator() {
         return administrator;
@@ -76,6 +64,3 @@ public class User {
         return sb.toString();
     }
 }
-=======
-}
->>>>>>> e3cb67cebd2ad6e5281192e2718f4252fcdc5cea

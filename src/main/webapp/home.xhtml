@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-<<<<<<< HEAD
                 template="template/main.xhtml"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html">
 
     <ui:define name="content">
-        <p:messages showDetail="true"/>
-=======
-                template="template/main.xhtml">
-
-    <ui:define name="content">
->>>>>>> e3cb67cebd2ad6e5281192e2718f4252fcdc5cea
+        <h:form>
+            <p:messages showDetail="true"/>
+        </h:form>
         <!-- Random Slot -->
         <ui:include src="/slot/random.xhtml"/>
         <br />
         <!-- List Slot by Month -->
         <ui:include src="/slot/list.xhtml"/>
     </ui:define>
-
 </ui:composition>
