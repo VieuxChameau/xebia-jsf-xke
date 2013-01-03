@@ -6,26 +6,30 @@
     <url-mapping id="home">
         <pattern value="/home"/>
         <view-id value="/home.xhtml"/>
+        <action onPostback="false">#{slotController.initViewSlots}</action>
     </url-mapping>
 
     <url-mapping id="createSlot">
         <pattern value="/slots/new"/>
         <view-id value="/slot/form.xhtml"/>
+        <action onPostback="false">#{slotController.initCreateSlot}</action>
     </url-mapping>
 
     <url-mapping id="viewSlot">
         <pattern value="/slots/#{slotId : slotController.slotId}"/>
         <view-id value="/slot/view.xhtml"/>
+        <action onPostback="false">#{slotController.initViewAndEditSlot}</action>
     </url-mapping>
 
     <url-mapping id="editSlot">
         <pattern value="/slots/edit/#{slotId : slotController.slotId}"/>
         <view-id value="/slot/form.xhtml"/>
+        <action onPostback="false">#{slotController.initViewAndEditSlot}</action>
     </url-mapping>
 
     <url-mapping id="viewUser">
         <pattern value="/users/#{slotId : userController.userId}"/>
         <view-id value="/user/view.xhtml"/>
-         <action>#{userController.initViewUser}</action>
+         <action onPostback="false">#{userController.initViewUser}</action>
     </url-mapping>
 </pretty-config>

@@ -2,6 +2,7 @@ package fr.xebia.xke.jsfdemo.controller;
 
 import fr.xebia.xke.jsfdemo.dao.UserDao;
 import fr.xebia.xke.jsfdemo.entity.User;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -12,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 @ManagedBean
 @ViewScoped
-public class UserController {
+public class UserController implements Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -26,12 +27,12 @@ public class UserController {
     public String initViewUser() {
         try {
             loadedUser = userDao.getById(Integer.parseInt(userId));
+            return null; // on reste sur la page si on a reussi a charger le user
         } catch (Exception e) {
-            logger.warn("Failed to load User {} {}", userId, e);
-            Messages.addError("Unknow user {0}", userId);
-            return "pretty:home";
+            logger.warn("Failed to load User {} - Reason : {}", userId, e);
+            Messages.create("Unknow user {0}", userId).flash().error().add();
         }
-        return null;
+        return "pretty:home";
     }
 
     public String getUserId() {

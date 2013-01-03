@@ -12,10 +12,19 @@ import java.io.Serializable;
 import java.util.*;
 
 import static com.google.common.collect.Lists.newArrayList;
+import com.google.common.collect.Maps;
+import com.ocpsoft.pretty.PrettyContext;
+import fr.xebia.xke.jsfdemo.entity.Comment;
+import org.omnifaces.util.Faces;
+import org.omnifaces.util.Messages;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ManagedBean
 @ViewScoped
 public class SlotController implements Serializable {
+
+    private static final Logger logger = LoggerFactory.getLogger(SlotController.class);
 
     public static final Set<SlotType> SLOT_TYPES = EnumSet.allOf(SlotType.class);
 
@@ -27,29 +36,103 @@ public class SlotController implements Serializable {
     private SlotDao slotDao;
 
     private String slotId;
+
     private Slot slot;
-    private List<Slot> slots;
+
     private Map<YearMonth, List<Slot>> slotsByYearMonth;
-    private Slot randomSlot;
+
+    // Pour les commentaire
+    private int sumComments;
+
+    private Comment newComment;
+
+    // TODO : remplacer par la datamodel
+    private List<Comment> comments;
+
+    public void initCreateSlot() {
+        slot = new Slot();
+    }
+
+    public String initViewAndEditSlot() {
+        // On charge le slot demande
+        try {
+            final Integer wantedSlotId = Integer.parseInt(slotId);
+            slot = slotDao.getById(wantedSlotId);
+
+            initComments();
+            return null;
+        } catch (Exception ex) { // Slot non trouve
+            logger.warn("Failed to load the slot {} - Reason : {}", slotId, ex);
+            Messages.create("Unknown slot {0}", slotId).flash().error().add();
+        }
+        return "pretty:home";
+    }
+
+    /**
+     * Load comments
+     */
+    private void initComments() {
+        newComment = new Comment();
+        comments = slotDao.getAllCommentsForSlot(slot.getId());
+        sumComments = slotDao.countCommentsForSlot(slot.getId());
+    }
+
+    public void initViewSlots() {
+        final List<Slot> slots = slotDao.getAll();
+
+        slotsByYearMonth = Maps.newTreeMap();
+        for (Slot aSlot : slots) {
+            YearMonth yearMonth = new YearMonth(aSlot.getScheduleDate());
+            if (slotsByYearMonth.containsKey(yearMonth)) {
+                List<Slot> list = slotsByYearMonth.get(yearMonth);
+                list.add(aSlot);
+                slotsByYearMonth.put(yearMonth, list);
+            } else {
+                slotsByYearMonth.put(yearMonth, newArrayList(aSlot));
+            }
+        }
+
+        // random slot
+        if (!slots.isEmpty()) {
+            slot = slots.get(new Random().nextInt(slots.size()));
+        }
+    }
 
     public String create() {
-        slotDao.create(getSlot());
-        return "pretty:home";
+        try {
+            slotDao.create(slot);
+            Messages.addInfo(null, "Creation of slot suceed - Id {0}", slot.getId());
+            logger.debug("Creation of slot {} succeed", slot.getId());
+            return "pretty:home";
+        } catch (Exception ex) {
+            logger.error("Failed to create slot - Reason :", ex);
+            Messages.addError(null, "Slot Creation failed !");
+        }
+        return null; // Erreur on reste sur la page
     }
 
     public String update() {
-        slotDao.update(getSlot());
+        slotDao.update(slot);
         return "pretty:home";
     }
 
-    public Slot getRandomSlot() {
-        if (randomSlot == null) {
-            List<Slot> slots = getSlots();
-            if (!slots.isEmpty()) {
-                randomSlot = slots.get(new Random().nextInt(slots.size()));
-            }
+    public String postComment() {
+        newComment.setSlotId(slot.getId());
+        newComment.setPostDate(new Date());
+        final OpenId sessionBean = Faces.getSessionAttribute("openid");
+        logger.debug("OpenId session bean {}", sessionBean);
+        newComment.setUser(sessionBean.getConnectedUser());
+
+        try {
+            slotDao.createComment(newComment);
+            Messages.addInfo(null, "Comment post suceed");
+            logger.debug("Creation of comment {} succeed", slot.getId());
+            return "pretty:" + PrettyContext.getCurrentInstance().getCurrentMapping().getId();
+        } catch (Exception ex) {
+            logger.error("Failed to create comment - Reason :", ex);
+            Messages.addError(null, "Comment post fail");
         }
-        return randomSlot;
+        return null;  // Erreur on reste sur la page
     }
 
     public String getSlotId() {
@@ -61,37 +144,10 @@ public class SlotController implements Serializable {
     }
 
     public Slot getSlot() {
-        if (slot == null) {
-            if (slotId != null) {
-                slot = slotDao.getById(Integer.parseInt(slotId));
-            } else {
-                slot = new Slot();
-            }
-        }
         return slot;
     }
 
-    public List<Slot> getSlots() {
-        if (slots == null) {
-            slots = slotDao.getAll();
-        }
-        return slots;
-    }
-
     public Map<YearMonth, List<Slot>> getSlotsByYearMonth() {
-        if (slotsByYearMonth == null) {
-            slotsByYearMonth = new TreeMap<>();
-            for (Slot slot : getSlots()) {
-                YearMonth yearMonth = new YearMonth(slot.getScheduleDate());
-                if (slotsByYearMonth.containsKey(yearMonth)) {
-                    List<Slot> list = slotsByYearMonth.get(yearMonth);
-                    list.add(slot);
-                    slotsByYearMonth.put(yearMonth, list);
-                } else {
-                    slotsByYearMonth.put(yearMonth, newArrayList(slot));
-                }
-            }
-        }
         return slotsByYearMonth;
     }
 
@@ -101,5 +157,17 @@ public class SlotController implements Serializable {
 
     public Set<SlotType> getSlotTypes() {
         return SLOT_TYPES;
+    }
+
+    public Comment getNewComment() {
+        return newComment;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public int getSumComments() {
+        return sumComments;
     }
 }

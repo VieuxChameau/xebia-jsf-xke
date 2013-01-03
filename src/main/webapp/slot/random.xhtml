@@ -2,17 +2,17 @@
            xmlns:h="http://java.sun.com/jsf/html"
            xmlns:f="http://java.sun.com/jsf/core"
            id="random_slot"
-           rendered="#{slotController.randomSlot != null}">
+           rendered="#{slotController.slot != null}">
 
     <div class="hero-unit">
         <h3 id="authors">
-            <h:outputText value="#{slotController.randomSlot.title}"/>
+            <h:outputText value="#{slotController.slot.title}"/>
             <br/>
-            <small> by <h:outputText value="#{slotController.randomSlot.author}"/></small>
+            <small> by <h:outputText value="#{slotController.slot.author}"/></small>
         </h3>
-        <p class="description"><h:outputText value="#{slotController.randomSlot.description}"/></p>
+        <p class="description"><h:outputText value="#{slotController.slot.description}"/></p>
         <h:link value="#{messages['slot.learn.more']}" styleClass="btn primary large" outcome="pretty:viewSlot">
-            <f:param name="slotId" value="#{slotController.randomSlot.id}"/>
+            <f:param name="slotId" value="#{slotController.slot.id}"/>
         </h:link>
     </div>
 

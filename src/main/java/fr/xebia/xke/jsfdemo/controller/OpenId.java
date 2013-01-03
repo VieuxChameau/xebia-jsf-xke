@@ -26,6 +26,8 @@ import org.openid4java.message.ax.FetchResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+// TODO renommer ce bean et clean le code
 @ManagedBean(name = "openid")
 @SessionScoped
 public class OpenId implements Serializable {

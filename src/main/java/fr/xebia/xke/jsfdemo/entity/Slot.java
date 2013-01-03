@@ -1,16 +1,16 @@
 package fr.xebia.xke.jsfdemo.entity;
 
 import fr.xebia.xke.jsfdemo.enums.SlotType;
-
-import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+import javax.persistence.*;
 
 @NamedQueries({
         @NamedQuery(name = "Slot.getAll", query = "SELECT s from Slot s WHERE month(s.scheduleDate) >= month(current_date())"),
         @NamedQuery(name = "Slot.getSlotById", query = "SELECT s FROM Slot s WHERE s.id = :slotId")})
 @Entity
-public class Slot {
+public class Slot implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

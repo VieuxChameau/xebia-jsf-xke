@@ -1,5 +1,6 @@
 package fr.xebia.xke.jsfdemo.entity;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
@@ -8,7 +9,7 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
     @NamedQuery(name = "User.getUserById", query = "SELECT u FROM User u WHERE u.id = :userId")})
 @Entity
-public class User {
+public class User implements Serializable {
 
     @Id
     private Integer id;
