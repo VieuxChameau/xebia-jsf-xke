@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotBlank;
 
 @NamedQueries({
         @NamedQuery(name = "Slot.getAll", query = "SELECT s from Slot s WHERE month(s.scheduleDate) >= month(current_date())"),
@@ -16,8 +18,11 @@ public class Slot implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank
+    @Size(min=20, max=60)
     private String title;
 
+    @NotBlank
     @Lob
     private String description;
 
@@ -31,13 +36,13 @@ public class Slot implements Serializable{
     @OneToOne
     private User author;
 
+    // TODO : Rajouter validation une fois les speakers implemenetes
     @OneToMany
     private Set<User> speakers;
 
     @Enumerated
     private SlotType slotType;
     //private String file;
-    //private List<Comment> comments;
     //private List<Rating> rates;
 
     public Integer getId() {
