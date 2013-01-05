@@ -7,13 +7,13 @@
         <param name="Target" value="System.out" />
         <param name="Encoding" value="UTF-8" />
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%-5p: %c - %m%n" />
+            <param name="ConversionPattern" value="%d{HH:mm:ss,SSS} %-5p: %c - %m%n" />
         </layout>
     </appender>
 
     <!-- Application Loggers -->
-    <logger name="org.application">
-        <level value="debug" />
+    <logger name="org">
+        <level value="warn" />
     </logger>
 
     <logger name="org.openid4java">
@@ -21,14 +21,14 @@
     </logger>
 
 
-    <logger name="fr.xebia">
+    <logger name="fr.xebia.xke.jsfdemo.controller">
         <level value="debug" />
     </logger>
 
 
     <!-- Root Logger -->
     <root>
-        <priority value="debug" />
+        <priority value="warn" />
         <appender-ref ref="console" />
     </root>
 

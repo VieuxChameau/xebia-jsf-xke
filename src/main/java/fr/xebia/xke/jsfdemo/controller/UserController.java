@@ -31,6 +31,7 @@ public class UserController implements Serializable {
 
     @URLAction(mappingId = "viewUser", onPostback = false)
     public String initViewUser() {
+        logger.debug("Init view for user {}", userId);
         try {
             loadedUser = userDao.getById(Integer.parseInt(userId));
             return null; // on reste sur la page si on a reussi a charger le user

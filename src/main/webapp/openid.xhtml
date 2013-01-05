@@ -2,29 +2,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
-<h:head>
-    <title>Facelet Title</title>
-</h:head>
-<h:body>
-    <f:event type="preRenderView" listener="#{openid.onLoadMethod}" />
-    <h:form>
-        
-
-        <h:outputLabel for="userSuppliedId" value="User Supplied Id: "/>
-        <h:outputText id="userSuppliedId" value="#{openid.userSuppliedId}"/>
-        <br/>
-        <h:outputLabel for="fullname" value="Fullname: "/>
-        <h:outputText id="fullname" value="#{openid.openIdFullName}"/>
-        <br/>
-        <h:outputLabel for="firstname" value="Firstname: "/>
-        <h:outputText id="firstname" value="#{openid.openIdFirstName}"/>
-        <br/>
-        <h:outputLabel for="lastname" value="Lastname: "/>
-        <h:outputText id="lastname" value="#{openid.openIdLastName}"/>
-        <br/>
-        <h:outputLabel for="country" value="Country: "/>
-        <h:outputText id="country" value="#{openid.openIdCountry}"/>
-    </h:form>
-</h:body>
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pretty="http://ocpsoft.com/prettyfaces">
+    <h:head>
+        <title>Connection info</title>
+    </h:head>
+    <h:body>
+        <f:event type="preRenderView" listener="#{openid.verifyOpenidResponse}" />
+        <p:fieldset legend="Connection informations">
+            <h:outputLabel for="userSuppliedId" value="User Supplied Id: "/>
+            <h:outputText id="userSuppliedId" value="#{openid.userSuppliedId}"/>
+            <br/>
+            <h:outputLabel for="email" value="Email :"/>
+            <h:outputText id="email" value="#{openid.connectedUser.email}"/>
+            <br/>
+            <h:outputLabel for="fullname" value="Fullname: "/>
+            <h:outputText id="fullname" value="#{openid.connectedUser.fullName}"/>
+            <br/>
+            <h:outputLabel for="firstname" value="Firstname: "/>
+            <h:outputText id="firstname" value="#{openid.connectedUser.firstName}"/>
+            <br/>
+            <h:outputLabel for="lastname" value="Lastname: "/>
+            <h:outputText id="lastname" value="#{openid.connectedUser.lastName}"/>
+        </p:fieldset>
+        <pretty:link mappingId="home">
+            Accueil
+        </pretty:link>
+    </h:body>
 </html>
