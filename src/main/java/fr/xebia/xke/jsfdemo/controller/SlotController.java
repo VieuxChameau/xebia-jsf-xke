@@ -14,12 +14,21 @@ import java.util.*;
 import static com.google.common.collect.Lists.newArrayList;
 import com.google.common.collect.Maps;
 import com.ocpsoft.pretty.PrettyContext;
+import com.ocpsoft.pretty.faces.annotation.URLAction;
+import com.ocpsoft.pretty.faces.annotation.URLActions;
+import com.ocpsoft.pretty.faces.annotation.URLMapping;
+import com.ocpsoft.pretty.faces.annotation.URLMappings;
 import fr.xebia.xke.jsfdemo.entity.Comment;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@URLMappings(mappings = {
+    @URLMapping(id = "home", pattern = "/slots", viewId = "/home.xhtml"),
+    @URLMapping(id = "createSlot", pattern = "/slots/new", viewId = "/slot/form.xhtml"),
+    @URLMapping(id = "viewSlot", pattern = "/slots/view/#{slotId : slotController.slotId}", viewId = "/slot/view.xhtml"),
+    @URLMapping(id = "editSlot", pattern = "/slots/edit/#{slotId : slotController.slotId}", viewId = "/slot/form.xhtml")})
 @ManagedBean
 @ViewScoped
 public class SlotController implements Serializable {
@@ -49,10 +58,15 @@ public class SlotController implements Serializable {
     // TODO : remplacer par la datamodel
     private List<Comment> comments;
 
+    @URLAction(mappingId = "createSlot", onPostback = false)
     public void initCreateSlot() {
         slot = new Slot();
+        slot.setScheduleDate(new Date());
     }
 
+    @URLActions(actions = {
+        @URLAction(mappingId = "viewSlot", onPostback = false),
+        @URLAction(mappingId = "editSlot", onPostback = false)})
     public String initViewAndEditSlot() {
         // On charge le slot demande
         try {
@@ -63,7 +77,7 @@ public class SlotController implements Serializable {
             return null;
         } catch (Exception ex) { // Slot non trouve
             logger.warn("Failed to load the slot {} - Reason : {}", slotId, ex);
-            Messages.create("Unknown slot {0}", slotId).flash().error().add();
+            Messages.create("Unknown slot {0}", slotId).error().add();
         }
         return "pretty:home";
     }
@@ -77,6 +91,7 @@ public class SlotController implements Serializable {
         sumComments = slotDao.countCommentsForSlot(slot.getId());
     }
 
+    @URLAction(mappingId = "home", onPostback = false)
     public void initViewSlots() {
         final List<Slot> slots = slotDao.getAll();
 

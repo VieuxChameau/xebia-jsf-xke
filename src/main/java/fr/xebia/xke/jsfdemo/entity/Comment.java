@@ -35,7 +35,6 @@ public class Comment implements Serializable {
     @ManyToOne
     private User user;
 
-    
     @Temporal(TemporalType.TIMESTAMP)
     private Date postDate;
 

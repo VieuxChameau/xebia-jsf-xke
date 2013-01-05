@@ -4,10 +4,10 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
     <h:form class="new_comment">
-        <p:messages globalOnly="true"/>
         <h3><small>#{messages['slot.add.comment.title']}</small></h3>
         <div class="field">
-            <h:inputTextarea value="#{slotController.newComment.comment}" cols="40" rows="6" styleClass="span16"/>
+            <p:messages/>
+            <h:inputTextarea value="#{slotController.newComment.comment}" cols="40" rows="6" styleClass="span16" label="#{messages['slot.comment.label']}"/>
         </div>
         <div class="actions">
             <h:commandButton action="#{slotController.postComment()}" value="#{messages['slot.add.comment.button']}" />
