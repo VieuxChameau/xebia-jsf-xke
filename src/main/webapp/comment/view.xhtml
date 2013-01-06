@@ -7,7 +7,7 @@
         <h:outputFormat value="#{messages['slot.nb.comments']}" rendered="#{slotController.sumComments > 0}">
             <f:param value="#{slotController.sumComments}"/>
         </h:outputFormat>
-        <h:outputText value="#{messages['slot.no.comment']}" rendered="#{empty slotController.comments}" />
+        <h:outputText value="#{messages['slot.no.comment']}" rendered="#{empty slotController.comments}"/>
     </h3>
 
     <ui:repeat value="#{slotController.comments}" var="aComment">
@@ -17,13 +17,14 @@
             </h:outputText>
             <strong>
                 <pretty:link mappingId="viewUser">
-                    <f:param value="#{aComment.user.id}" />
+                    <f:param value="#{aComment.user.id}"/>
                     #{aComment.user.fullName}
-                </pretty:link>#{messages['slot.comment.writter']}<br /><br />
+                </pretty:link>#{messages['slot.comment.writter']}<br/><br/>
             </strong>
             <blockquote>
-                <br />#{aComment.comment}<br />
+                <br/>#{aComment.comment}<br/>
             </blockquote>
         </div>
     </ui:repeat>
+
 </ui:composition>

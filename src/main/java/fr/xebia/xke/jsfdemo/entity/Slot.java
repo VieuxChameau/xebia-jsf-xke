@@ -1,25 +1,27 @@
 package fr.xebia.xke.jsfdemo.entity;
 
 import fr.xebia.xke.jsfdemo.enums.SlotType;
+import org.apache.commons.lang.StringUtils;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.NotBlank;
 
 @NamedQueries({
-        @NamedQuery(name = "Slot.getAll", query = "SELECT s from Slot s WHERE month(s.scheduleDate) >= month(current_date())"),
+        @NamedQuery(name = "Slot.getAll", query = "SELECT s from Slot s WHERE month(s.scheduleDate) >= month(current_date()) and year(s.scheduleDate) >= year(current_date())"),
         @NamedQuery(name = "Slot.getSlotById", query = "SELECT s FROM Slot s WHERE s.id = :slotId")})
 @Entity
-public class Slot implements Serializable{
+public class Slot implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotBlank
-    @Size(min=20, max=60)
+    @Size(min = 20, max = 60)
     private String title;
 
     @NotBlank
@@ -36,13 +38,13 @@ public class Slot implements Serializable{
     @OneToOne
     private User author;
 
-    // TODO : Rajouter validation une fois les speakers implemenetes
     @OneToMany
     private Set<User> speakers;
 
     @Enumerated
     private SlotType slotType;
     //private String file;
+    //private List<Comment> comments;
     //private List<Rating> rates;
 
     public Integer getId() {
@@ -63,6 +65,10 @@ public class Slot implements Serializable{
 
     public String getDescription() {
         return description;
+    }
+
+    public String getDescriptionAbbreviated() {
+        return StringUtils.abbreviate(description, 240);
     }
 
     public void setDescription(String description) {

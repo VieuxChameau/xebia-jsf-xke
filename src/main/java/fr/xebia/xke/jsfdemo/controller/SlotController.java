@@ -1,9 +1,19 @@
 package fr.xebia.xke.jsfdemo.controller;
 
+import com.ocpsoft.pretty.PrettyContext;
+import com.ocpsoft.pretty.faces.annotation.URLAction;
+import com.ocpsoft.pretty.faces.annotation.URLActions;
+import com.ocpsoft.pretty.faces.annotation.URLMapping;
+import com.ocpsoft.pretty.faces.annotation.URLMappings;
 import fr.xebia.xke.jsfdemo.dao.SlotDao;
+import fr.xebia.xke.jsfdemo.entity.Comment;
 import fr.xebia.xke.jsfdemo.entity.Slot;
 import fr.xebia.xke.jsfdemo.enums.SlotType;
 import org.joda.time.YearMonth;
+import org.omnifaces.util.Faces;
+import org.omnifaces.util.Messages;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -12,23 +22,13 @@ import java.io.Serializable;
 import java.util.*;
 
 import static com.google.common.collect.Lists.newArrayList;
-import com.google.common.collect.Maps;
-import com.ocpsoft.pretty.PrettyContext;
-import com.ocpsoft.pretty.faces.annotation.URLAction;
-import com.ocpsoft.pretty.faces.annotation.URLActions;
-import com.ocpsoft.pretty.faces.annotation.URLMapping;
-import com.ocpsoft.pretty.faces.annotation.URLMappings;
-import fr.xebia.xke.jsfdemo.entity.Comment;
-import org.omnifaces.util.Faces;
-import org.omnifaces.util.Messages;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static com.google.common.collect.Maps.newTreeMap;
 
 @URLMappings(mappings = {
-    @URLMapping(id = "home", pattern = "/slots", viewId = "/home.xhtml"),
-    @URLMapping(id = "createSlot", pattern = "/slots/new", viewId = "/slot/form.xhtml"),
-    @URLMapping(id = "viewSlot", pattern = "/slots/view/#{slotId : slotController.slotId}", viewId = "/slot/view.xhtml"),
-    @URLMapping(id = "editSlot", pattern = "/slots/edit/#{slotId : slotController.slotId}", viewId = "/slot/form.xhtml")})
+        @URLMapping(id = "home", pattern = "/slots", viewId = "/home.xhtml"),
+        @URLMapping(id = "createSlot", pattern = "/slots/new", viewId = "/slot/form.xhtml"),
+        @URLMapping(id = "viewSlot", pattern = "/slots/view/#{slotId : slotController.slotId}", viewId = "/slot/view.xhtml"),
+        @URLMapping(id = "editSlot", pattern = "/slots/edit/#{slotId : slotController.slotId}", viewId = "/slot/form.xhtml")})
 @ManagedBean
 @ViewScoped
 public class SlotController implements Serializable {
@@ -50,7 +50,6 @@ public class SlotController implements Serializable {
 
     private Map<YearMonth, List<Slot>> slotsByYearMonth;
 
-    // Pour les commentaire
     private int sumComments;
 
     private Comment newComment;
@@ -65,8 +64,8 @@ public class SlotController implements Serializable {
     }
 
     @URLActions(actions = {
-        @URLAction(mappingId = "viewSlot", onPostback = false),
-        @URLAction(mappingId = "editSlot", onPostback = false)})
+            @URLAction(mappingId = "viewSlot", onPostback = false),
+            @URLAction(mappingId = "editSlot", onPostback = false)})
     public String initViewAndEditSlot() {
         // On charge le slot demande
         try {
@@ -95,7 +94,7 @@ public class SlotController implements Serializable {
     public void initViewSlots() {
         final List<Slot> slots = slotDao.getAll();
 
-        slotsByYearMonth = Maps.newTreeMap();
+        slotsByYearMonth = newTreeMap();
         for (Slot aSlot : slots) {
             YearMonth yearMonth = new YearMonth(aSlot.getScheduleDate());
             if (slotsByYearMonth.containsKey(yearMonth)) {
@@ -116,7 +115,7 @@ public class SlotController implements Serializable {
     public String create() {
         try {
             slotDao.create(slot);
-            Messages.addInfo(null, "Creation of slot suceed - Id {0}", slot.getId());
+            Messages.addInfo(null, "Creation of slot succeed - Id {0}", slot.getId());
             logger.debug("Creation of slot {} succeed", slot.getId());
             return "pretty:home";
         } catch (Exception ex) {
@@ -131,6 +130,11 @@ public class SlotController implements Serializable {
         return "pretty:home";
     }
 
+    public String remove() {
+        slotDao.delete(slot);
+        return "pretty:home";
+    }
+
     public String postComment() {
         newComment.setSlotId(slot.getId());
         newComment.setPostDate(new Date());
@@ -140,7 +144,7 @@ public class SlotController implements Serializable {
 
         try {
             slotDao.createComment(newComment);
-            Messages.addInfo(null, "Comment post suceed");
+            Messages.addInfo(null, "Comment post succeed");
             logger.debug("Creation of comment {} succeed", slot.getId());
             return "pretty:" + PrettyContext.getCurrentInstance().getCurrentMapping().getId();
         } catch (Exception ex) {
