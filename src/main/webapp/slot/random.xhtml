@@ -8,7 +8,7 @@
         <h3 id="authors">
             <h:outputText value="#{slotController.slot.title}"/>
             <br/>
-            <small> by <h:outputText value="#{slotController.slot.author}"/></small>
+            <small> by <h:outputText value="#{slotController.slot.author.fullName}"/></small>
         </h3>
         <p class="description"><h:outputText value="#{slotController.slot.description}"/></p>
         <h:link value="#{messages['slot.learn.more']}" styleClass="btn primary large" outcome="pretty:viewSlot">

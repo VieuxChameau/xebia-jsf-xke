@@ -3,8 +3,15 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
     <context-param>
+        <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+        <param-value>true</param-value>
+        <description>Permet de fixer le probleme de f convertDateTime qui affiche avec un jour de moins</description>
+    </context-param>
+
+    <context-param>
         <param-name>com.ocpsoft.pretty.BASE_PACKAGES</param-name>
         <param-value>fr.xebia.xke.jsfdemo.controller</param-value>
+        <description>Package de base pour le scan des mappings d'url</description>
     </context-param>
 
     <!-- Default encoding is UTF-8 -->

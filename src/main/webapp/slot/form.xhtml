@@ -44,11 +44,11 @@
                     </div>
                 </div>
 
-                <!-- Type -->
+                <!-- Schedule Date -->
                 <div class="clearfix">
                     <h:outputLabel value="#{messages['slot.wishedDate.label']}" for="scheduleDate" styleClass="control-label"/>
                     <div class="input">
-                        <p:calendar id="scheduleDate" value="#{slotController.slot.scheduleDate}" showOn="button" />
+                        <p:calendar id="scheduleDate" value="#{slotController.slot.scheduleDate}"/>
                         <span class='help-inline'>
                             <h:message for="scheduleDate"/>
                         </span>

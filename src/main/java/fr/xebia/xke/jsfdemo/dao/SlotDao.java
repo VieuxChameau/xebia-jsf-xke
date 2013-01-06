@@ -27,11 +27,15 @@ public class SlotDao {
     }
 
     public Slot update(Slot slot) {
-        return entityManager.merge(slot);
+        final Slot updatedSlot = entityManager.merge(slot);
+        entityManager.flush();
+        return updatedSlot;
     }
 
     public void delete(Slot slot) {
-        entityManager.remove(entityManager.merge(slot));
+        //entityManager.remove(entityManager.merge(slot));
+        entityManager.remove(slot);
+        entityManager.flush();
     }
 
     public void createComment(final Comment newComment) {

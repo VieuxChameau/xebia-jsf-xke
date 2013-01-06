@@ -78,6 +78,20 @@ public class User implements Serializable {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof User)) {
+            return false;
+        }
+        User other = (User) object;
+        return Objects.equal(id, other.id);
+    }
+
+    @Override
     public String toString() {
         return Objects.toStringHelper(this).add("Firstname", firstName).add("LastName", lastName).add("email", email).toString();
     }

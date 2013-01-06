@@ -1,5 +1,6 @@
 package fr.xebia.xke.jsfdemo.entity;
 
+import com.google.common.base.Objects;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -76,5 +77,14 @@ public class Comment implements Serializable {
 
     public void setPostDate(Date postDate) {
         this.postDate = postDate;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Comment)) {
+            return false;
+        }
+        Comment other = (Comment) object;
+        return Objects.equal(id, other.id);
     }
 }

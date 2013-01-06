@@ -3,7 +3,6 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
-
     <h:form class="new_comment">
         <h3>
             <small>#{messages['slot.add.comment.title']}</small>
@@ -14,10 +13,6 @@
         </div>
         <div class="actions">
             <h:commandButton action="#{slotController.postComment()}" styleClass="btn" value="#{messages['slot.add.comment.button']}"/>
-            <h:link outcome="pretty:editSlot" styleClass="btn primary" value="#{messages['default.button.edit.label']}">
-                <f:param name="slotId" value="#{slotController.slot.id}"/>
-            </h:link>
         </div>
     </h:form>
-
 </ui:composition>

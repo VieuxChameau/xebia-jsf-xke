@@ -4,28 +4,53 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:xke="http://java.sun.com/jsf/composite/xke"
                 template="/template/main.xhtml">
-
     <ui:define name="content">
-        <f:subview id="view_slot" rendered="#{slotController.slot != null}">
-            <h:panelGrid columns="2">
-                <h:outputText value="#{messages['slot.title.label']}"/>
-                <h:outputText value="#{slotController.slot.title}"/>
-
-                <h:outputText value="#{messages['slot.description.label']}"/>
-                <h:outputText value="#{slotController.slot.description}"/>
-
-                <h:outputText value="#{messages['slot.videoCastAccepted.label']}"/>
-                <xke:outputBoolean value="#{slotController.slot.videoAccepted}" />
-
-                <h:outputText value="#{messages['slot.duration.label']}"/>
-                <h:outputText value="#{slotController.slot.duration}"/>
-
-                <h:outputText value="#{messages['slot.type.label']}"/>
-                <h:outputText value="#{messages[slotController.slot.slotType.i18n()]}"/>
-            </h:panelGrid>
-        </f:subview>
+        <h:form>
+            <table>
+                <tr>
+                    <td><h:outputText value="#{messages['slot.title.label']}"/></td>
+                    <td><h:outputText value="#{slotController.slot.title}"/></td>
+                </tr>
+                <tr>
+                    <td><h:outputText value="#{messages['slot.description.label']}"/></td>
+                    <td><h:outputText value="#{slotController.slot.description}"/></td>
+                </tr>
+                <tr>
+                    <td><h:outputText value="#{messages['slot.videoCastAccepted.label']}"/></td>
+                    <td><xke:outputBoolean value="#{slotController.slot.videoAccepted}" /></td>
+                </tr>
+                <tr>
+                    <td><h:outputText value="#{messages['slot.duration.label']}"/></td>
+                    <td><h:outputText value="#{slotController.slot.duration}"/></td>
+                </tr>
+                <tr>
+                    <td><h:outputText value="#{messages['slot.scheduledDate.label']}"/></td>
+                    <td><h:outputText value="#{slotController.slot.scheduleDate}">
+                            <f:convertDateTime pattern="MMMMM yyyy" />
+                        </h:outputText>
+                    </td>
+                </tr>
+                <tr>
+                    <td><h:outputText value="#{messages['slot.author.label']}"/></td>
+                    <td><h:outputText value="#{slotController.slot.author.fullName}"/></td>
+                </tr>
+                <tr>
+                    <td><h:outputText value="#{messages['slot.type.label']}"/></td>
+                    <td><h:outputText value="#{messages[slotController.slot.slotType.i18n()]}"/></td>
+                </tr>
+                <ui:fragment rendered="#{slotController.editAllowed}">
+                    <tr>
+                        <td colspan="2" class="actions">
+                            <h:link outcome="pretty:editSlot" styleClass="btn primary" value="#{messages['default.button.edit.label']}">
+                                <f:param name="slotId" value="#{slotController.slot.id}"/>
+                            </h:link>
+                            <h:commandButton action="#{slotController.remove()}" value="#{messages['default.button.delete.label']}" styleClass="btn danger"/>
+                        </td>
+                    </tr>
+                </ui:fragment>
+            </table>
+        </h:form>
 
         <ui:include src="/comment/comment.xhtml" />
     </ui:define>
-
 </ui:composition>

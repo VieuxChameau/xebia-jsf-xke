@@ -1,5 +1,6 @@
 package fr.xebia.xke.jsfdemo.entity;
 
+import com.google.common.base.Objects;
 import fr.xebia.xke.jsfdemo.enums.SlotType;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.NotBlank;
@@ -118,5 +119,19 @@ public class Slot implements Serializable {
 
     public void setSpeakers(Set<User> speakers) {
         this.speakers = speakers;
+    }
+
+     @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Slot)) {
+            return false;
+        }
+        Slot other = (Slot) object;
+        return Objects.equal(id, other.id);
     }
 }
