@@ -16,11 +16,6 @@
             <base-name>messages</base-name>
             <var>messages</var>
         </resource-bundle>
-
-        <resource-bundle>
-            <base-name>slotType</base-name>
-            <var>slotMsg</var>
-        </resource-bundle>
     </application>
 
     <lifecycle>

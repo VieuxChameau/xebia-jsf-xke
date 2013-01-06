@@ -1,16 +1,6 @@
 package fr.xebia.xke.jsfdemo.controller;
 
 import fr.xebia.xke.jsfdemo.entity.User;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
-import javax.servlet.http.HttpServletRequest;
 import org.openid4java.OpenIDException;
 import org.openid4java.consumer.ConsumerManager;
 import org.openid4java.consumer.VerificationResult;
@@ -24,6 +14,15 @@ import org.openid4java.message.ax.FetchRequest;
 import org.openid4java.message.ax.FetchResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.List;
 
 @ManagedBean(name = "openid")
 @SessionScoped
@@ -58,18 +57,14 @@ public class OpenId implements Serializable {
     private String returnToUrl(String urlExtension) {
         final FacesContext context = FacesContext.getCurrentInstance();
         final HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        String returnToUrl = "http://" + request.getServerName() + ":" + request.getServerPort()
+        return "http://" + request.getServerName() + ":" + request.getServerPort()
                 + context.getApplication().getViewHandler().getActionURL(context, urlExtension);
-        return returnToUrl;
     }
 
     /**
      * Create an authentication request. It performs a discovery on the user-supplied identifier. Attempt it to associate with the OpenID provider and retrieve one dao endpoint for authentication. It
      * adds some attributes for exchange on the AuthRequest. A List of all possible attributes can be found on
      *
-     * @see http://www.axschema.org/types/
-     *
-     * @param returnToUrl
      * @return the URL where the message should be sent
      * @throws IOException
      */
@@ -92,9 +87,8 @@ public class OpenId implements Serializable {
         return null;
     }
 
-    public String verifyOpenidResponse(ComponentSystemEvent event) {
+    public String verifyOpenidResponse() {
         final ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-
         final HttpServletRequest request = (HttpServletRequest) context.getRequest();
         verifyResponse(request);
         return "pretty:home";

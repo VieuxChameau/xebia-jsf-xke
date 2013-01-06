@@ -3,7 +3,6 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:cc="http://java.sun.com/jsf/composite"
-      xmlns:of="http://omnifaces.org/functions"
       xmlns:pretty="http://ocpsoft.com/prettyfaces">
 
     <cc:interface name="slotBlock" displayName="Bloc to display a slot"
@@ -18,9 +17,9 @@
                 <span><h:outputText value="#{cc.attrs.slot.title}"/></span>
             </h5>
             <blockquote>
-                <p class="description"><h:outputText value="#{cc.attrs.slot.description}"/></p>
+                <p class="description"><h:outputText value="#{cc.attrs.slot.descriptionAbbreviated}"/></p>
                 <small>
-                    <h:outputText value="#{cc.attrs.slot.slotType}"/> - <h:outputText value="#{of:abbreviate(cc.attrs.slot.duration, 240)}"/>
+                    <h:outputText value="#{messages[cc.attrs.slot.slotType.i18n()]}"/> - <h:outputText value="#{cc.attrs.slot.duration}"/>
                     <span class="pull-right">0 comment</span>
                 </small>
             </blockquote>

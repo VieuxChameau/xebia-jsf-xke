@@ -5,14 +5,14 @@ import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 import fr.xebia.xke.jsfdemo.dao.UserDao;
 import fr.xebia.xke.jsfdemo.entity.User;
-import java.io.Serializable;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import org.omnifaces.util.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
+import java.io.Serializable;
 
 @URLMappings(mappings = {
     @URLMapping(id = "viewUser", pattern = "/users/#{userId : userController.userId}", viewId = "/user/view.xhtml")})

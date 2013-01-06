@@ -5,8 +5,6 @@
                 xmlns:xke="http://java.sun.com/jsf/composite/xke"
                 template="/template/main.xhtml">
 
-    <ui:define name="titlePage">#{messages['createslot.pageTitle']}</ui:define>
-
     <ui:define name="content">
         <f:subview id="view_slot" rendered="#{slotController.slot != null}">
             <h:panelGrid columns="2">

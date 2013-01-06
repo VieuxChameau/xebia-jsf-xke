@@ -31,7 +31,7 @@ public class SlotDao {
     }
 
     public void delete(Slot slot) {
-        entityManager.remove(slot);
+        entityManager.remove(entityManager.merge(slot));
     }
 
     public void createComment(final Comment newComment) {

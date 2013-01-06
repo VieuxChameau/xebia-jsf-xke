@@ -75,7 +75,7 @@
                     <div class="input">
                         <h:selectOneMenu id="type" value="#{slotController.slot.slotType}">
                             <f:selectItem itemLabel="#{messages['default.select.prompt']}" itemValue="" />
-                            <f:selectItems value="#{slotController.slotTypes}" var="type" itemLabel="#{slotMsg[type]}" itemValue="#{type}"/>
+                            <f:selectItems value="#{slotController.slotTypes}" var="type" itemLabel="#{messages[type.i18n()]}" itemValue="#{type}"/>
                         </h:selectOneMenu>
                         <span class='help-inline'>
                             <h:message for="type"/>
@@ -86,8 +86,15 @@
 
             <!-- Actions -->
             <div class="actions">
-                <h:commandButton value="#{messages['default.button.create.label']}" styleClass="btn primary" action="#{slotController.create()}" rendered="#{empty slotController.slotId}" />
-                <h:commandButton value="#{messages['default.button.update.label']}" styleClass="btn primary" action="#{slotController.update()}" rendered="#{!empty slotController.slotId}" />
+                <h:commandButton id="new_slot_action" value="#{messages['default.button.create.label']}" styleClass="btn primary"
+                                 action="#{slotController.create()}"
+                                 rendered="#{empty slotController.slotId}" />
+                <h:commandButton id="update_slot_action" value="#{messages['default.button.update.label']}" styleClass="btn primary"
+                                 action="#{slotController.update()}"
+                                 rendered="#{!empty slotController.slotId}" />
+                <h:commandButton id="delete_slot_action" value="#{messages['default.button.delete.label']}" styleClass="btn danger"
+                                 action="#{slotController.remove()}" immediate="true"
+                                 rendered="#{!empty slotController.slotId}"  />
             </div>
         </h:form>
     </ui:define>
