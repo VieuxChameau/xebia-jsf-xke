@@ -144,7 +144,8 @@ public class SlotController extends AbstractController implements Serializable {
             slotDao.create(slot);
             Messages.addInfo(null, "Creation of slot succeed - Id {0}", slot.getId());
             logger.debug("Creation of slot {} succeed", slot.getId());
-            return "pretty:home";
+            slotId = slot.getId().toString();
+            return "pretty:viewSlot";
         } catch (Exception ex) {
             logger.error("Failed to create slot - Reason :", ex);
             Messages.addError(null, "Slot Creation failed !");

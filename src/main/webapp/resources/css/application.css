@@ -53,3 +53,12 @@ body {
 .actions .btn {
     margin-left: 1em;
 }
+
+#commentsTable table, #commentsTable .ui-datatable, #commentsTable .ui-datatable-data, #commentsTable .ui-widget-content,#commentsTable td{
+    border: none;
+    background: none;
+}
+
+#commentsTable thead{
+    display: none;
+}

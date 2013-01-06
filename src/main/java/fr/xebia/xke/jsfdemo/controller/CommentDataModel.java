@@ -16,17 +16,13 @@ public class CommentDataModel extends LazyDataModel<Comment> {
 
     private final Integer slotId;
 
-    private final Integer totalCommentsForSlot;
-
-    public CommentDataModel(CommentDao dao, Integer slotId, Integer totalCommentsForSlot) {
+    public CommentDataModel(CommentDao dao, Integer slotId) {
         this.commentDao = dao;
         this.slotId = slotId;
-        this.totalCommentsForSlot = totalCommentsForSlot;
     }
 
     @Override
     public List<Comment> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters) {
-        setRowCount(totalCommentsForSlot);
         return commentDao.getCommentsForSlot(slotId, first, pageSize);
     }
 }

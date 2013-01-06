@@ -5,7 +5,6 @@ import fr.xebia.xke.jsfdemo.entity.Comment;
 import fr.xebia.xke.jsfdemo.entity.User;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -32,8 +31,7 @@ public class CommentController implements Serializable {
 
     private Comment newComment;
 
-    // TODO : remplacer par la datamodel
-    private List<Comment> comments;
+    private CommentDataModel dataModel;
 
     /**
      * Load comments
@@ -41,8 +39,9 @@ public class CommentController implements Serializable {
     public void initComments(final Integer visitedSlotId) {
         slotId = visitedSlotId;
         newComment = new Comment();
-        comments = commentDao.getAllCommentsForSlot(slotId);
         sumComments = commentDao.countCommentsForSlot(slotId);
+        dataModel = new CommentDataModel(commentDao, slotId);
+        dataModel.setRowCount(sumComments);
     }
 
     public String postComment() {
@@ -66,15 +65,15 @@ public class CommentController implements Serializable {
         return newComment;
     }
 
-    public List<Comment> getComments() {
-        return comments;
-    }
-
     public int getSumComments() {
         return sumComments;
     }
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+    }
+
+    public CommentDataModel getDataModel() {
+        return dataModel;
     }
 }
