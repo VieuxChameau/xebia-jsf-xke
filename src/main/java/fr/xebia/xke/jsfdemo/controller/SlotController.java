@@ -1,6 +1,5 @@
 package fr.xebia.xke.jsfdemo.controller;
 
-import com.ocpsoft.pretty.PrettyContext;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLActions;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
@@ -25,13 +24,13 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newTreeMap;
 
 @URLMappings(mappings = {
-        @URLMapping(id = "home", pattern = "/slots", viewId = "/home.xhtml"),
-        @URLMapping(id = "createSlot", pattern = "/slots/new", viewId = "/slot/form.xhtml"),
-        @URLMapping(id = "viewSlot", pattern = "/slots/view/#{slotId : slotController.slotId}", viewId = "/slot/view.xhtml"),
-        @URLMapping(id = "editSlot", pattern = "/slots/edit/#{slotId : slotController.slotId}", viewId = "/slot/form.xhtml")})
+    @URLMapping(id = "home", pattern = "/slots", viewId = "/home.xhtml"),
+    @URLMapping(id = "createSlot", pattern = "/slots/new", viewId = "/slot/form.xhtml"),
+    @URLMapping(id = "viewSlot", pattern = "/slots/view/#{slotId : slotController.slotId}", viewId = "/slot/view.xhtml"),
+    @URLMapping(id = "editSlot", pattern = "/slots/edit/#{slotId : slotController.slotId}", viewId = "/slot/form.xhtml")})
 @ManagedBean
 @ViewScoped
-public class SlotController implements Serializable {
+public class SlotController extends AbstractController implements Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(SlotController.class);
 
@@ -58,15 +57,24 @@ public class SlotController implements Serializable {
     private List<Comment> comments;
 
     @URLAction(mappingId = "createSlot", onPostback = false)
-    public void initCreateSlot() {
+    public String initCreateSlot() {
+        if (!isAuthenticated()) {
+            return returnToLoginNotAuthenticated();
+        }
+
         slot = new Slot();
         slot.setScheduleDate(new Date());
+        return null;
     }
 
     @URLActions(actions = {
-            @URLAction(mappingId = "viewSlot", onPostback = false),
-            @URLAction(mappingId = "editSlot", onPostback = false)})
+        @URLAction(mappingId = "viewSlot", onPostback = false),
+        @URLAction(mappingId = "editSlot", onPostback = false)})
     public String initViewAndEditSlot() {
+        if (!isAuthenticated()) {
+            return returnToLoginNotAuthenticated();
+        }
+
         // On charge le slot demande
         try {
             final Integer wantedSlotId = Integer.parseInt(slotId);
@@ -91,7 +99,11 @@ public class SlotController implements Serializable {
     }
 
     @URLAction(mappingId = "home", onPostback = false)
-    public void initViewSlots() {
+    public String initViewSlots() {
+        if (!isAuthenticated()) {
+            return returnToLoginNotAuthenticated();
+        }
+
         final List<Slot> slots = slotDao.getAll();
 
         slotsByYearMonth = newTreeMap();
@@ -110,6 +122,7 @@ public class SlotController implements Serializable {
         if (!slots.isEmpty()) {
             slot = slots.get(new Random().nextInt(slots.size()));
         }
+        return null;
     }
 
     public String create() {
@@ -138,7 +151,7 @@ public class SlotController implements Serializable {
     public String postComment() {
         newComment.setSlotId(slot.getId());
         newComment.setPostDate(new Date());
-        final OpenId sessionBean = Faces.getSessionAttribute("openid");
+        final UserSession sessionBean = Faces.getSessionAttribute("userSession");
         logger.debug("OpenId session bean {}", sessionBean);
         newComment.setUser(sessionBean.getConnectedUser());
 
@@ -146,7 +159,7 @@ public class SlotController implements Serializable {
             slotDao.createComment(newComment);
             Messages.addInfo(null, "Comment post succeed");
             logger.debug("Creation of comment {} succeed", slot.getId());
-            return "pretty:" + PrettyContext.getCurrentInstance().getCurrentMapping().getId();
+            return "pretty:viewSlot";
         } catch (Exception ex) {
             logger.error("Failed to create comment - Reason :", ex);
             Messages.addError(null, "Comment post fail");

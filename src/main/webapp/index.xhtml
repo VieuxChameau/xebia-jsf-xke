@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>XKE</title>
         <meta charset="utf-8"/>
@@ -16,6 +17,7 @@
         <div class="container">
             <div class="signin">
                 <h:form>
+                    <p:messages />
                     <fieldset class="span9">
                         <h:outputLink value="http://www.xebia.fr">
                             <h:graphicImage library="img" name="xebia-large.gif" style="margin-bottom: 30px;" title="Xebia"/>
@@ -25,12 +27,12 @@
 
                             <div class="input">
                                 <div class="input-prepend">
-                                    <h:inputText id="openid_identifier" value="#{openid.userSuppliedId}" />
+                                    <h:inputText id="openid_identifier" value="#{userSession.userSuppliedId}" />
                                 </div>
                             </div>
                         </div>
                         <div class="actions">
-                            <h:commandButton id="login_button" action="#{openid.login}" value="#{messages['springSecurity.login.button']}" styleClass="btn"/>
+                            <h:commandButton id="login_button" action="#{userSession.login}" value="#{messages['springSecurity.login.button']}" styleClass="btn"/>
                         </div>
                     </fieldset>
                 </h:form>

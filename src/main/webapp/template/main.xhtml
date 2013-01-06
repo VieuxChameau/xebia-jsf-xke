@@ -39,10 +39,10 @@
                         <h:form styleClass="pull-right">
                             <p>
                                 <h:outputFormat value="#{messages['menu.loggedin.message']}">
-                                    <f:param value="#{openid.connectedUser.fullName}"/>
+                                    <f:param value="#{userSession.connectedUser.fullName}"/>
                                 </h:outputFormat>
 
-                                <h:commandLink action="#{openid.logout}">
+                                <h:commandLink action="#{userSession.logout}">
                                     <h:graphicImage library="img" name="logout.png" />
                                 </h:commandLink>
                             </p>

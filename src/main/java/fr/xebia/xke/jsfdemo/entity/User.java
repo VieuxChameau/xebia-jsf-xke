@@ -10,7 +10,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 
 @NamedQueries({
-    @NamedQuery(name = "User.getUserById", query = "SELECT u FROM User u WHERE u.id = :userId")})
+    @NamedQuery(name = "User.getUserById", query = "SELECT u FROM User u WHERE u.id = :userId"),
+    @NamedQuery(name = "User.getUserByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
+})
 @Entity
 public class User implements Serializable {
 

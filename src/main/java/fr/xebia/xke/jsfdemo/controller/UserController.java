@@ -5,20 +5,19 @@ import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 import fr.xebia.xke.jsfdemo.dao.UserDao;
 import fr.xebia.xke.jsfdemo.entity.User;
-import org.omnifaces.util.Messages;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
-import java.io.Serializable;
+import org.omnifaces.util.Messages;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @URLMappings(mappings = {
     @URLMapping(id = "viewUser", pattern = "/users/#{userId : userController.userId}", viewId = "/user/view.xhtml")})
 @ManagedBean
 @ViewScoped
-public class UserController implements Serializable {
+public class UserController extends AbstractController implements Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -31,6 +30,10 @@ public class UserController implements Serializable {
 
     @URLAction(mappingId = "viewUser", onPostback = false)
     public String initViewUser() {
+        if (!isAuthenticated()) {
+            return returnToLoginNotAuthenticated();
+        }
+
         logger.debug("Init view for user {}", userId);
         try {
             loadedUser = userDao.getById(Integer.parseInt(userId));

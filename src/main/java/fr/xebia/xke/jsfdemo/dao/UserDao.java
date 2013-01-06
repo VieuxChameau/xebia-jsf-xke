@@ -14,4 +14,18 @@ public class UserDao {
     public User getById(Integer slotId) {
         return entityManager.createNamedQuery("User.getUserById", User.class).setParameter("userId", slotId).getSingleResult();
     }
+
+    public User getByEmail(String email) {
+        try {
+            return entityManager.createNamedQuery("User.getUserByEmail", User.class).setParameter("email", email).getSingleResult();
+        } catch (Exception e) {
+            // Silent catch return null instead of not found exception
+        }
+        return null;
+    }
+
+    public User createUser(final User newUser) {
+        entityManager.persist(newUser);
+        return newUser;
+    }
 }

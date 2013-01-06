@@ -1,6 +1,9 @@
-package fr.xebia.xke.jsfdemo.controller;
+package fr.xebia.xke.jsfdemo.openid;
 
 import fr.xebia.xke.jsfdemo.entity.User;
+import java.io.IOException;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.openid4java.OpenIDException;
 import org.openid4java.consumer.ConsumerManager;
 import org.openid4java.consumer.VerificationResult;
@@ -15,66 +18,26 @@ import org.openid4java.message.ax.FetchResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.List;
+/**
+ * OpenId doc https://developers.google.com/accounts/docs/OpenID?hl=fr
+ */
+public class OpenidConnector {
 
-@ManagedBean(name = "openid")
-@SessionScoped
-public class OpenId implements Serializable {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(OpenId.class);
-
-    private User connectedUser;
-
-    private String userSuppliedId;
+    private static final Logger LOGGER = LoggerFactory.getLogger(OpenidConnector.class);
 
     private ConsumerManager manager;
 
     private DiscoveryInformation discovered;
 
-    public String login() throws IOException {
+    public OpenidConnector() {
         manager = new ConsumerManager();
-
-        final String url = authRequest(returnToUrl("/openid.xhtml"));
-        if (url != null) {
-            FacesContext.getCurrentInstance().getExternalContext().redirect(url);
-        }
-        return null;
-    }
-
-    public String logout() {
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        connectedUser = null;
-        return "pretty:home";
-    }
-
-    /**
-     * Create the current url and add another url path fragment on it. Obtain from the current context the url and add another url path fragment at the end
-     *
-     * @param urlExtension f.e. /nextside.xhtml
-     * @return the hole url including the new fragment
-     */
-    private String returnToUrl(String urlExtension) {
-        final FacesContext context = FacesContext.getCurrentInstance();
-        final HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        return "http://" + request.getServerName() + ":" + request.getServerPort()
-                + context.getApplication().getViewHandler().getActionURL(context, urlExtension);
     }
 
     /**
      * Create an authentication request. It performs a discovery on the user-supplied identifier. Attempt it to associate with the OpenID provider and retrieve one dao endpoint for authentication. It
-     * adds some attributes for exchange on the AuthRequest. A List of all possible attributes can be found on
-     *
-     * @return the URL where the message should be sent
-     * @throws IOException
+     * adds some attributes for exchange on the AuthRequest.
      */
-    private String authRequest(String returnToUrl) throws IOException {
+    public String buildAuthRequestUrl(final String returnToUrl) throws IOException {
         try {
             final List discoveries = manager.discover("https://www.google.com/accounts/o8/id");
             discovered = manager.associate(discoveries);
@@ -93,26 +56,18 @@ public class OpenId implements Serializable {
         return null;
     }
 
-    public String verifyOpenidResponse() {
-        final ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-        final HttpServletRequest request = (HttpServletRequest) context.getRequest();
-        verifyResponse(request);
-        return "pretty:home";
-    }
-
     /**
-     * Set the class members with date from the authentication response. Extract the parameters from the authentication response (which comes in as a HTTP request from the OpenID provider). Verify the
-     * response, examine the verification result and extract the verified identifier.
-     *
-     * @param httpReq httpRequest
-     * @return users identifier.
+     * Extract the parameters from the authentication response (which comes in as a HTTP request from the OpenID provider). Verify the
+     * response, examine the verification result and extract the user.
      */
-    private String verifyResponse(final HttpServletRequest httpReq) {
+    public User verifyResponse(final HttpServletRequest httpReq) {
         try {
             final ParameterList response = new ParameterList(httpReq.getParameterMap());
 
             final StringBuffer receivingURL = httpReq.getRequestURL();
+            System.out.println("receivingURL " + receivingURL);
             final String queryString = httpReq.getQueryString();
+            System.out.println("queryString " + queryString);
             if (queryString != null && queryString.length() > 0) {
                 receivingURL.append("?").append(httpReq.getQueryString());
             }
@@ -125,9 +80,8 @@ public class OpenId implements Serializable {
 
                 if (authSuccess.hasExtension(AxMessage.OPENID_NS_AX)) {
                     final FetchResponse fetchResp = (FetchResponse) authSuccess.getExtension(AxMessage.OPENID_NS_AX);
-                    connectedUser = buildUserFromResponse(fetchResp);
+                    return buildUserFromResponse(fetchResp);
                 }
-                return verified.getIdentifier();
             } else {
                 LOGGER.error("Failed to get informations");
             }
@@ -148,24 +102,5 @@ public class OpenId implements Serializable {
         LOGGER.debug("User created {}", user);
 
         return user;
-    }
-
-    public String getUserSuppliedId() {
-        return userSuppliedId;
-    }
-
-    public void setUserSuppliedId(String userSuppliedId) {
-        this.userSuppliedId = userSuppliedId;
-    }
-
-    /**
-     * @return the connectedUser
-     */
-    public User getConnectedUser() {
-        return connectedUser;
-    }
-
-    public boolean isLoggedIn() {
-        return connectedUser != null;
     }
 }

@@ -11,8 +11,8 @@ import java.util.Date;
 import java.util.Set;
 
 @NamedQueries({
-        @NamedQuery(name = "Slot.getAll", query = "SELECT s from Slot s WHERE month(s.scheduleDate) >= month(current_date()) and year(s.scheduleDate) >= year(current_date())"),
-        @NamedQuery(name = "Slot.getSlotById", query = "SELECT s FROM Slot s WHERE s.id = :slotId")})
+    @NamedQuery(name = "Slot.getAll", query = "SELECT s from Slot s WHERE month(s.scheduleDate) >= month(current_date()) and year(s.scheduleDate) >= year(current_date())"),
+    @NamedQuery(name = "Slot.getSlotById", query = "SELECT s FROM Slot s WHERE s.id = :slotId")})
 @Entity
 public class Slot implements Serializable {
 
@@ -43,9 +43,6 @@ public class Slot implements Serializable {
 
     @Enumerated
     private SlotType slotType;
-    //private String file;
-    //private List<Comment> comments;
-    //private List<Rating> rates;
 
     public Integer getId() {
         return id;
@@ -106,7 +103,6 @@ public class Slot implements Serializable {
     public void setSlotType(SlotType slotType) {
         this.slotType = slotType;
     }
-
 
     public User getAuthor() {
         return author;

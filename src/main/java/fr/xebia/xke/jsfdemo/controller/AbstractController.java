@@ -1,13 +1,19 @@
 package fr.xebia.xke.jsfdemo.controller;
 
-import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import org.omnifaces.util.Faces;
-
+import org.omnifaces.util.Messages;
 
 public abstract class AbstractController {
 
-    public boolean isLoggedIn() {
-        final OpenId openId = Faces.getSessionAttribute("openid");
-        return openId != null && openId.isLoggedIn();
+    protected static final String PRETTY_LOGIN = "pretty:login";
+
+    public final boolean isAuthenticated() {
+        final UserSession userSession = Faces.getSessionAttribute("userSession");
+        return userSession != null && userSession.isLoggedIn();
+    }
+
+    protected final String returnToLoginNotAuthenticated() {
+        Messages.create("This page required to be authenticated").error().add();
+        return PRETTY_LOGIN;
     }
 }
