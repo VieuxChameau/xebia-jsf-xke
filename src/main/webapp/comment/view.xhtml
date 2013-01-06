@@ -4,13 +4,13 @@
                 xmlns:pretty="http://ocpsoft.com/prettyfaces"
                 xmlns:f="http://java.sun.com/jsf/core">
     <h3>
-        <h:outputFormat value="#{messages['slot.nb.comments']}" rendered="#{slotController.sumComments > 0}">
-            <f:param value="#{slotController.sumComments}"/>
+        <h:outputFormat value="#{messages['slot.nb.comments']}" rendered="#{commentController.sumComments > 0}">
+            <f:param value="#{commentController.sumComments}"/>
         </h:outputFormat>
-        <h:outputText value="#{messages['slot.no.comment']}" rendered="#{empty slotController.comments}"/>
+        <h:outputText value="#{messages['slot.no.comment']}" rendered="#{empty commentController.comments}"/>
     </h3>
 
-    <ui:repeat value="#{slotController.comments}" var="aComment">
+    <ui:repeat value="#{commentController.comments}" var="aComment">
         <div class="alert-message block-message info">
             <h:outputText value="#{aComment.postDate}" styleClass="comment_date">
                 <f:convertDateTime pattern="dd/MM/yyyy 'at' HH:mm"/>

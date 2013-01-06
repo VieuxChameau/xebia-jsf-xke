@@ -10,6 +10,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+import javax.validation.constraints.NotNull;
 
 @NamedQueries({
     @NamedQuery(name = "Slot.getAll", query = "SELECT s from Slot s WHERE month(s.scheduleDate) >= month(current_date()) and year(s.scheduleDate) >= year(current_date())"),
@@ -22,7 +23,7 @@ public class Slot implements Serializable {
     private Integer id;
 
     @NotBlank
-    @Size(min = 20, max = 60)
+    @Size(min = 10, max = 60)
     private String title;
 
     @NotBlank
@@ -34,6 +35,7 @@ public class Slot implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date scheduleDate;
 
+    @NotNull
     private String duration;
 
     @OneToOne
@@ -42,6 +44,7 @@ public class Slot implements Serializable {
     @OneToMany
     private Set<User> speakers;
 
+    @NotNull
     @Enumerated
     private SlotType slotType;
 
@@ -121,7 +124,7 @@ public class Slot implements Serializable {
         this.speakers = speakers;
     }
 
-     @Override
+    @Override
     public int hashCode() {
         return Objects.hashCode(id);
     }

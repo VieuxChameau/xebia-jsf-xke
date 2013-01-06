@@ -2,6 +2,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pretty="http://ocpsoft.com/prettyfaces"
                 xmlns:xke="http://java.sun.com/jsf/composite/xke"
                 template="/template/main.xhtml">
     <ui:define name="content">
@@ -13,7 +14,7 @@
                 </tr>
                 <tr>
                     <td><h:outputText value="#{messages['slot.description.label']}"/></td>
-                    <td><h:outputText value="#{slotController.slot.description}"/></td>
+                    <td><h:outputText value="#{slotController.slot.description}" style="white-space: pre" escape="false"/></td>
                 </tr>
                 <tr>
                     <td><h:outputText value="#{messages['slot.videoCastAccepted.label']}"/></td>
@@ -32,7 +33,12 @@
                 </tr>
                 <tr>
                     <td><h:outputText value="#{messages['slot.author.label']}"/></td>
-                    <td><h:outputText value="#{slotController.slot.author.fullName}"/></td>
+                    <td>
+                        <pretty:link mappingId="viewUser">
+                            <f:param value="#{slotController.slot.author.id}"/>
+                            <h:outputText value="#{slotController.slot.author.fullName}"/>
+                        </pretty:link>
+                    </td>
                 </tr>
                 <tr>
                     <td><h:outputText value="#{messages['slot.type.label']}"/></td>

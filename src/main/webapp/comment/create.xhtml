@@ -9,10 +9,10 @@
         </h3>
         <div class="field">
             <p:messages/>
-            <h:inputTextarea value="#{slotController.newComment.comment}" cols="40" rows="6" styleClass="span16" label="#{messages['slot.comment.label']}"/>
+            <h:inputTextarea value="#{commentController.newComment.comment}" cols="40" rows="6" styleClass="span16" label="#{messages['slot.comment.label']}"/>
         </div>
         <div class="actions">
-            <h:commandButton action="#{slotController.postComment()}" styleClass="btn" value="#{messages['slot.add.comment.button']}"/>
+            <h:commandButton action="#{commentController.postComment()}" styleClass="btn" value="#{messages['slot.add.comment.button']}"/>
         </div>
     </h:form>
 </ui:composition>

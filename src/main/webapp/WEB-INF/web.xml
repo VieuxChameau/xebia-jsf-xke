@@ -14,6 +14,11 @@
         <description>Package de base pour le scan des mappings d'url</description>
     </context-param>
 
+    <context-param>
+        <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
     <!-- Default encoding is UTF-8 -->
     <filter>
         <filter-name>characterEncodingFilter</filter-name>

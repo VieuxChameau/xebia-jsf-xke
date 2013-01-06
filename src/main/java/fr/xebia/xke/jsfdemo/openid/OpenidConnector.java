@@ -57,8 +57,7 @@ public class OpenidConnector {
     }
 
     /**
-     * Extract the parameters from the authentication response (which comes in as a HTTP request from the OpenID provider). Verify the
-     * response, examine the verification result and extract the user.
+     * Extract the parameters from the authentication response (which comes in as a HTTP request from the OpenID provider). Verify the response, examine the verification result and extract the user.
      */
     public User verifyResponse(final HttpServletRequest httpReq) {
         try {

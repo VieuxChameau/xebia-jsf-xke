@@ -1,8 +1,7 @@
 package fr.xebia.xke.jsfdemo.controller;
 
-import fr.xebia.xke.jsfdemo.dao.SlotDao;
+import fr.xebia.xke.jsfdemo.dao.CommentDao;
 import fr.xebia.xke.jsfdemo.entity.Comment;
-import fr.xebia.xke.jsfdemo.entity.Slot;
 import java.util.List;
 import java.util.Map;
 import org.primefaces.model.LazyDataModel;
@@ -13,14 +12,14 @@ import org.primefaces.model.SortOrder;
  */
 public class CommentDataModel extends LazyDataModel<Comment> {
 
-    private final SlotDao slotDao;
+    private final CommentDao commentDao;
 
     private final Integer slotId;
 
     private final Integer totalCommentsForSlot;
 
-    public CommentDataModel(SlotDao slotDao, Integer slotId, Integer totalCommentsForSlot) {
-        this.slotDao = slotDao;
+    public CommentDataModel(CommentDao dao, Integer slotId, Integer totalCommentsForSlot) {
+        this.commentDao = dao;
         this.slotId = slotId;
         this.totalCommentsForSlot = totalCommentsForSlot;
     }
@@ -28,6 +27,6 @@ public class CommentDataModel extends LazyDataModel<Comment> {
     @Override
     public List<Comment> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters) {
         setRowCount(totalCommentsForSlot);
-        return slotDao.getCommentsForSlot(slotId, first, pageSize);
+        return commentDao.getCommentsForSlot(slotId, first, pageSize);
     }
 }

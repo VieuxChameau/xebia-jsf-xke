@@ -1,27 +1,24 @@
 package fr.xebia.xke.jsfdemo.controller;
 
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Maps.newTreeMap;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 import fr.xebia.xke.jsfdemo.dao.SlotDao;
-import fr.xebia.xke.jsfdemo.entity.Comment;
 import fr.xebia.xke.jsfdemo.entity.Slot;
+import fr.xebia.xke.jsfdemo.entity.User;
 import fr.xebia.xke.jsfdemo.enums.SlotType;
+import java.io.Serializable;
+import java.util.*;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 import org.joda.time.YearMonth;
 import org.omnifaces.util.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Inject;
-import java.io.Serializable;
-import java.util.*;
-
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Maps.newTreeMap;
-import fr.xebia.xke.jsfdemo.entity.User;
-import javax.faces.bean.ManagedProperty;
 
 @URLMappings(mappings = {
     @URLMapping(id = "home", pattern = "/slots", viewId = "/home.xhtml"),
@@ -46,6 +43,9 @@ public class SlotController extends AbstractController implements Serializable {
     @ManagedProperty(value = "#{userSession.connectedUser}")
     private User currentUser;
 
+    @ManagedProperty(value = "#{commentController}")
+    private CommentController commentController;
+
     private String slotId;
 
     private Slot slot;
@@ -54,13 +54,7 @@ public class SlotController extends AbstractController implements Serializable {
 
     private Map<YearMonth, List<Slot>> slotsByYearMonth;
 
-    private int sumComments;
-
-    private Comment newComment;
-
-    // TODO : remplacer par la datamodel
-    private List<Comment> comments;
-
+    /* ** ** ** ** ** * Url Mapping Actions * ** ** ** ** ** */
     @URLAction(mappingId = "createSlot", onPostback = false)
     public String initCreateSlot() {
         if (!isAuthenticated()) {
@@ -83,7 +77,7 @@ public class SlotController extends AbstractController implements Serializable {
             final Integer wantedSlotId = Integer.parseInt(slotId);
             slot = slotDao.getById(wantedSlotId);
             editAllowed = userCanEditSlot();
-            initComments();
+            commentController.initComments(wantedSlotId);
             return null;
         } catch (Exception ex) { // Slot non trouve
             logger.warn("Failed to load the slot {} - Reason : {}", slotId, ex);
@@ -110,15 +104,6 @@ public class SlotController extends AbstractController implements Serializable {
             Messages.create("Unknown slot {0}", slotId).error().add();
         }
         return "pretty:home";
-    }
-
-    /**
-     * Load comments
-     */
-    private void initComments() {
-        newComment = new Comment();
-        comments = slotDao.getAllCommentsForSlot(slot.getId());
-        sumComments = slotDao.countCommentsForSlot(slot.getId());
     }
 
     private boolean userCanEditSlot() {
@@ -152,6 +137,7 @@ public class SlotController extends AbstractController implements Serializable {
         return null;
     }
 
+    /* ** ** ** ** ** * Actions Method * ** ** ** ** ** */
     public String create() {
         try {
             slot.setAuthor(currentUser);
@@ -176,23 +162,7 @@ public class SlotController extends AbstractController implements Serializable {
         return "pretty:home";
     }
 
-    public String postComment() {
-        newComment.setSlotId(slot.getId());
-        newComment.setPostDate(new Date());
-        newComment.setUser(currentUser);
-
-        try {
-            slotDao.createComment(newComment);
-            Messages.addInfo(null, "Comment post succeed");
-            logger.debug("Creation of comment {} succeed", slot.getId());
-            return "pretty:viewSlot";
-        } catch (Exception ex) {
-            logger.error("Failed to create comment - Reason :", ex);
-            Messages.addError(null, "Comment post fail");
-        }
-        return null;  // Erreur on reste sur la page
-    }
-
+    /* ** ** ** ** ** * Getter/Setter * ** ** ** ** ** */
     public String getSlotId() {
         return slotId;
     }
@@ -217,23 +187,15 @@ public class SlotController extends AbstractController implements Serializable {
         return SLOT_TYPES;
     }
 
-    public Comment getNewComment() {
-        return newComment;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public int getSumComments() {
-        return sumComments;
-    }
-
     public boolean isEditAllowed() {
         return editAllowed;
     }
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+    }
+
+    public void setCommentController(CommentController commentController) {
+        this.commentController = commentController;
     }
 }
