@@ -49,6 +49,12 @@ public class OpenId implements Serializable {
         return null;
     }
 
+    public String logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        connectedUser = null;
+        return "pretty:home";
+    }
+
     /**
      * Create the current url and add another url path fragment on it. Obtain from the current context the url and add another url path fragment at the end
      *
@@ -163,5 +169,9 @@ public class OpenId implements Serializable {
      */
     public User getConnectedUser() {
         return connectedUser;
+    }
+
+    public boolean isLoggedIn() {
+        return connectedUser != null;
     }
 }

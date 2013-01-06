@@ -36,16 +36,17 @@
                                 </ul>
                             </li>
                         </ul>
-                        <p class="pull-right">
-                            <h:outputFormat value="#{messages['menu.loggedin.message']}">
-                                <f:param value="#{openid.connectedUser.fullName}"/>
-                            </h:outputFormat>
-                            <h:form>
+                        <h:form styleClass="pull-right">
+                            <p>
+                                <h:outputFormat value="#{messages['menu.loggedin.message']}">
+                                    <f:param value="#{openid.connectedUser.fullName}"/>
+                                </h:outputFormat>
+
                                 <h:commandLink action="#{openid.logout}">
-                                    <i class="icon-off icon-white"></i>
+                                    <h:graphicImage library="img" name="logout.png" />
                                 </h:commandLink>
-                            </h:form>
-                        </p>
+                            </p>
+                        </h:form>
                     </div>
                 </div>
             </div>
