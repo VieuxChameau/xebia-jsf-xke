@@ -155,7 +155,7 @@ public class SlotController extends AbstractController implements Serializable {
 
     public String update() {
         slotDao.update(slot);
-        return "pretty:home";
+        return "pretty:viewSlot";
     }
 
     public String remove() {

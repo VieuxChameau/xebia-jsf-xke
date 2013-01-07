@@ -20,7 +20,8 @@
             <h:outputText value="#{userController.loadedUser.email}"/>
 
             <h:outputText value="Is administrator ?"/>
-            <xke:outputBoolean value="#{userController.loadedUser.administrator}" />
+            <h:outputText value="#{messages['default.boolean.false']}" rendered="#{!userController.loadedUser.administrator}" />
+            <h:outputText value="#{messages['default.boolean.true']}" rendered="#{userController.loadedUser.administrator}" />
         </h:panelGrid>
     </ui:define>
 </ui:composition>

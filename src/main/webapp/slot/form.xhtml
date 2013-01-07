@@ -7,15 +7,13 @@
 
     <ui:define name="content">
         <h:form id="new_slot" acceptcharset="UTF-8">
+            <p:messages />
             <fieldset>
                 <!-- Title -->
                 <div class="clearfix">
                     <h:outputLabel value="#{messages['slot.title.label']}" for="title" styleClass="control-label"/>
                     <div class="input">
-                        <h:inputText id="title" value="#{slotController.slot.title}" size="30" styleClass="span12"/>
-                        <span class='help-inline'>
-                            <h:message for="title"/>
-                        </span>
+                        <h:inputText id="title" label="#{messages['slot.title.label']}" value="#{slotController.slot.title}" size="30" styleClass="span12"/>
                     </div>
                 </div>
 
@@ -23,12 +21,9 @@
                 <div class="clearfix">
                     <h:outputLabel value="#{messages['slot.description.label']}" for="description" styleClass="control-label"/>
                     <div class="input">
-                        <h:inputTextarea id="description" value="#{slotController.slot.description}" rows="20" cols="40" style="width: 690px"/>
+                        <h:inputTextarea id="description" label="#{messages['slot.description.help']}" value="#{slotController.slot.description}" rows="20" cols="40" style="width: 690px"/>
                         <span class="help-block">
                             <h:outputText value="#{messages['slot.description.help']}" />
-                        </span>
-                        <span class='help-inline'>
-                            <h:message for="description"/>
                         </span>
                     </div>
                 </div>
@@ -38,9 +33,6 @@
                     <h:outputLabel value="#{messages['slot.videoCastAccepted.label']}" for="video" styleClass="control-label"/>
                     <div class="input">
                         <h:selectBooleanCheckbox id="video" value="#{slotController.slot.videoAccepted}"  />
-                        <span class='help-inline'>
-                            <h:message for="video"/>
-                        </span>
                     </div>
                 </div>
 
@@ -49,9 +41,6 @@
                     <h:outputLabel value="#{messages['slot.wishedDate.label']}" for="scheduleDate" styleClass="control-label"/>
                     <div class="input">
                         <p:calendar id="scheduleDate" value="#{slotController.slot.scheduleDate}"/>
-                        <span class='help-inline'>
-                            <h:message for="scheduleDate"/>
-                        </span>
                     </div>
                 </div>
 
@@ -59,13 +48,10 @@
                 <div class="clearfix">
                     <h:outputLabel value="#{messages['slot.duration.label']}" for="duration" styleClass="control-label"/>
                     <div class="input">
-                        <h:selectOneMenu id="duration" value="#{slotController.slot.duration}">
+                        <h:selectOneMenu id="duration" label="#{messages['slot.duration.label']}" value="#{slotController.slot.duration}">
                             <f:selectItem itemLabel="#{messages['default.select.prompt']}" itemValue="" />
                             <f:selectItems value="#{slotController.slotDurations}" var="duration" itemLabel="#{duration}" itemValue="#{duration}"/>
                         </h:selectOneMenu>
-                        <span class='help-inline'>
-                            <h:message for="duration"/>
-                        </span>
                     </div>
                 </div>
 
@@ -73,13 +59,10 @@
                 <div class="clearfix">
                     <h:outputLabel value="#{messages['slot.type.label']}" for="type" styleClass="control-label"/>
                     <div class="input">
-                        <h:selectOneMenu id="type" value="#{slotController.slot.slotType}">
+                        <h:selectOneMenu id="type" label="#{messages['slot.type.label']}" value="#{slotController.slot.slotType}">
                             <f:selectItem itemLabel="#{messages['default.select.prompt']}" itemValue="" />
                             <f:selectItems value="#{slotController.slotTypes}" var="type" itemLabel="#{messages[type.i18n()]}" itemValue="#{type}"/>
                         </h:selectOneMenu>
-                        <span class='help-inline'>
-                            <h:message for="type"/>
-                        </span>
                     </div>
                 </div>
             </fieldset>

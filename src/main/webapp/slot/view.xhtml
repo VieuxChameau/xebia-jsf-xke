@@ -3,7 +3,6 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:pretty="http://ocpsoft.com/prettyfaces"
-                xmlns:xke="http://java.sun.com/jsf/composite/xke"
                 template="/template/main.xhtml">
     <ui:define name="content">
         <h:form>
@@ -14,11 +13,14 @@
                 </tr>
                 <tr>
                     <td><h:outputText value="#{messages['slot.description.label']}"/></td>
-                    <td><h:outputText value="#{slotController.slot.description}" style="white-space: pre" escape="false"/></td>
+                    <td><h:outputText value="#{slotController.slot.description}" style="white-space: pre-line" escape="false"/></td>
                 </tr>
                 <tr>
                     <td><h:outputText value="#{messages['slot.videoCastAccepted.label']}"/></td>
-                    <td><xke:outputBoolean value="#{slotController.slot.videoAccepted}" /></td>
+                    <td>
+                        <h:outputText value="#{messages['default.boolean.false']}" rendered="#{!slotController.slot.videoAccepted}" />
+                        <h:outputText value="#{messages['default.boolean.true']}" rendered="#{slotController.slot.videoAccepted}" />
+                    </td>
                 </tr>
                 <tr>
                     <td><h:outputText value="#{messages['slot.duration.label']}"/></td>

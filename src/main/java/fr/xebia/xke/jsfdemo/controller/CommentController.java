@@ -69,6 +69,10 @@ public class CommentController implements Serializable {
         return sumComments;
     }
 
+    public int countCommentsForSlot(int slotId) {
+        return commentDao.countCommentsForSlot(slotId);
+    }
+
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }

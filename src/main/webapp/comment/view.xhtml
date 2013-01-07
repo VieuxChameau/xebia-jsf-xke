@@ -13,7 +13,7 @@
 
     <h:form rendered="#{commentController.sumComments > 0}" id="commentsTable">
         <p:dataTable value="#{commentController.dataModel}" var="aComment"
-                     lazy="true" rows="1"
+                     lazy="true" rows="10"
                      paginator="true" paginatorAlwaysVisible="false"
                      paginatorPosition="bottom">
             <p:column>
@@ -35,20 +35,3 @@
         </p:dataTable>
     </h:form>
 </ui:composition>
-
-<!--<ui:repeat value="#{commentController.comments}" var="aComment">
-    <div class="alert-message block-message info">
-        <h:outputText value="#{aComment.postDate}" styleClass="comment_date">
-            <f:convertDateTime pattern="dd/MM/yyyy 'at' HH:mm"/>
-        </h:outputText>
-        <strong>
-            <pretty:link mappingId="viewUser">
-                <f:param value="#{aComment.user.id}"/>
-#{aComment.user.fullName}
-</pretty:link>#{messages['slot.comment.writter']}<br/><br/>
-</strong>
-<blockquote>
-<br/>#{aComment.comment}<br/>
-</blockquote>
-</div>
-</ui:repeat>-->

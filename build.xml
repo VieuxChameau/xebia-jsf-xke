@@ -1,0 +1,32 @@
+<project name="xebia-jsf-xke" default="reload-webapp" basedir=".">
+    <description>
+        XKE simple build file.
+    </description>
+
+    <!-- set global properties for this build -->
+    <property name="webapp.directory" location="${basedir}/src/main/webapp"/>
+    <property name="output.directory" location="${basedir}/target"/>
+
+    <target name="redeploy" description="Redeploy WAR">
+        <exec executable="mvn">
+            <arg value="jboss-as:redeploy"/>
+        </exec>
+    </target>
+
+    <target name="reload-webapp" description="Hot Reload WEBAPP" >
+        <exec executable="find" outputproperty="jboss.webapp.dir" failonerror="true">
+            <arg value="${output.directory}/jboss-as-run"/>
+            <arg value="-name"/>
+            <arg value="home.xhtml"/>
+            <arg value="-exec"/>
+            <arg value="dirname"/>
+            <arg value="{}"/>
+            <arg value=";"/>
+        </exec>
+        <echo message="Jboss webapp home : ${jboss.webapp.dir}" />
+        <copy todir="${jboss.webapp.dir}" overwrite="true" failonerror="true">
+            <fileset dir="${webapp.directory}" excludes="WEB-INF/"/>
+        </copy>
+    </target>
+
+</project>
