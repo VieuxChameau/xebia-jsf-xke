@@ -64,10 +64,8 @@ public class OpenidConnector {
             final ParameterList response = new ParameterList(httpReq.getParameterMap());
 
             final StringBuffer receivingURL = httpReq.getRequestURL();
-            System.out.println("receivingURL " + receivingURL);
             final String queryString = httpReq.getQueryString();
-            System.out.println("queryString " + queryString);
-            if (queryString != null && queryString.length() > 0) {
+            if (queryString != null && !queryString.isEmpty()) {
                 receivingURL.append("?").append(httpReq.getQueryString());
             }
 

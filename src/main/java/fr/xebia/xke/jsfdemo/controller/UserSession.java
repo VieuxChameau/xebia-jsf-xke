@@ -60,7 +60,6 @@ public class UserSession extends AbstractController implements Serializable {
     }
 
     public void verifyOpenidResponse() throws IOException {
-        System.out.println("verifyOpenidResponse");
         final ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         final HttpServletRequest request = (HttpServletRequest) context.getRequest();
         final User openIdUser = openidConnector.verifyResponse(request);
