@@ -13,7 +13,7 @@ public abstract class AbstractController {
     }
 
     protected final String returnToLoginNotAuthenticated() {
-        Messages.create("This page required to be authenticated").error().add();
+        Messages.create("login.required").error().add();
         return PRETTY_LOGIN;
     }
 }

@@ -70,7 +70,7 @@ public class UserSession extends AbstractController implements Serializable {
             }
             redirectPage = "slots";
         } else {
-            Messages.create("Failed to authenticate").error().add();
+            Messages.create("login.required").error().add();
         }
     }
 

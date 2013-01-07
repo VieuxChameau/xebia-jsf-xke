@@ -8,15 +8,17 @@ import javax.faces.bean.ManagedBean;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 
+/*
+ * If eager=”true” and scope is application, then this bean must be created when the application starts and not during the first reference to the bean
+ */
 @ApplicationScoped
-@ManagedBean
+@ManagedBean(eager = true)
 public class ApplicationController {
 
     @PostConstruct
     public void initializeApp() {
-        /* TODO
-         * Messages.setResolver(new Messages.Resolver() {
-            private static final String BASE_NAME = "fr.xebia.xke.jsfdemo.controllers_messages_en";
+        Messages.setResolver(new Messages.Resolver() {
+            private static final String BASE_NAME = "controllers_messages";
 
             @Override
             public String getMessage(String message, Object... params) {
@@ -26,6 +28,6 @@ public class ApplicationController {
                 }
                 return MessageFormat.format(message, params);
             }
-        });*/
+        });
     }
 }
