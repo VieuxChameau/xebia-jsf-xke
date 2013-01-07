@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 @ViewScoped
 public class CommentController implements Serializable {
 
-    private static final Logger logger = LoggerFactory.getLogger(CommentController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommentController.class);
 
     @Inject
     private CommentDao commentDao;
@@ -51,12 +51,12 @@ public class CommentController implements Serializable {
 
         try {
             commentDao.createComment(newComment);
-            Messages.addInfo(null, "Comment post succeed");
-            logger.debug("Creation of comment {} succeed", slotId);
+            Messages.addInfo(null, "commentCreation.succeed");
+            LOGGER.debug("Creation of comment {} succeed", slotId);
             return "pretty:viewSlot";
         } catch (Exception ex) {
-            logger.error("Failed to create comment - Reason :", ex);
-            Messages.addError(null, "Comment post fail");
+            LOGGER.error("Failed to create comment - Reason :", ex);
+            Messages.addError(null, "commentCreation.fail");
         }
         return null;  // Erreur on reste sur la page
     }

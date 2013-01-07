@@ -5,39 +5,39 @@
       xmlns:cc="http://java.sun.com/jsf/composite"
       xmlns:pretty="http://ocpsoft.com/prettyfaces">
 
-<cc:interface name="slotBlock" displayName="Bloc to display a slot"
-              preferred="true" expert="false" shortDescription="Bloc to display a slot">
-    <cc:attribute type="fr.xebia.xke.jsfdemo.entity.Slot" name="slot" required="true"/>
-</cc:interface>
+    <cc:interface name="slotBlock" displayName="Bloc to display a slot"
+                  preferred="true" expert="false" shortDescription="Bloc to display a slot">
+        <cc:attribute type="fr.xebia.xke.jsfdemo.entity.Slot" name="slot" required="true"/>
+    </cc:interface>
 
-<cc:implementation>
-    <f:subview id="#{cc.attrs.slot.id}_bloc">
-        <h5 class="description">
-            <span class="label notice">Scheduled</span>
-            <span><h:outputText value="#{cc.attrs.slot.title}"/></span>
-        </h5>
-        <blockquote>
-            <p class="description"><h:outputText value="#{cc.attrs.slot.descriptionAbbreviated}"/></p>
-            <small>
-                <h:outputFormat value="#{messages['slot.grid.name.and.duration']}">
-                    <f:param value="#{messages[cc.attrs.slot.slotType.i18n()]}"/>
-                    <f:param value="#{cc.attrs.slot.duration}"/>
-                </h:outputFormat>
+    <cc:implementation>
+        <f:subview id="#{cc.attrs.slot.id}_bloc">
+            <h5 class="description">
+                <span class="label notice">Scheduled</span>
+                <span><h:outputText value="#{cc.attrs.slot.title}"/></span>
+            </h5>
+            <blockquote>
+                <p class="description"><h:outputText value="#{cc.attrs.slot.descriptionAbbreviated}"/></p>
+                <small>
+                    <h:outputFormat value="#{messages['slot.grid.name.and.duration']}">
+                        <f:param value="#{messages[cc.attrs.slot.slotType.i18n()]}"/>
+                        <f:param value="#{cc.attrs.slot.duration}"/>
+                    </h:outputFormat>
                     <span class="pull-right">
                         <h:outputFormat value="#{messages['slot.grid.nb.comments']}">
                             <f:param value="#{commentController.countCommentsForSlot(cc.attrs.slot.id)}"/>
                         </h:outputFormat>
                     </span>
-            </small>
-        </blockquote>
-        <p>
-            <h:link value="#{messages['slot.grid.view.slot.detail']}" styleClass="btn" outcome="pretty:viewSlot">
-                <f:param name="slotId" value="#{cc.attrs.slot.id}"/>
-            </h:link>
-            <span class="pull-right">
-                <span class="label important">Rate it!</span>
-            </span>
-        </p>
-    </f:subview>
-</cc:implementation>
+                </small>
+            </blockquote>
+            <p>
+                <h:link value="#{messages['slot.grid.view.slot.detail']}" styleClass="btn" outcome="pretty:viewSlot">
+                    <f:param name="slotId" value="#{cc.attrs.slot.id}"/>
+                </h:link>
+                <span class="pull-right">
+                    <span class="label important">Rate it!</span>
+                </span>
+            </p>
+        </f:subview>
+    </cc:implementation>
 </html>

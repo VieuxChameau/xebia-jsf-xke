@@ -1,7 +1,6 @@
 package fr.xebia.xke.jsfdemo.controller;
 
 import org.omnifaces.util.Faces;
-import org.omnifaces.util.Messages;
 
 public abstract class AbstractController {
 
@@ -13,7 +12,6 @@ public abstract class AbstractController {
     }
 
     protected final String returnToLoginNotAuthenticated() {
-        Messages.create("login.required").error().add();
         return PRETTY_LOGIN;
     }
 }

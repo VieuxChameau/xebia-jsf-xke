@@ -87,4 +87,9 @@ public class Comment implements Serializable {
         Comment other = (Comment) object;
         return Objects.equal(id, other.id);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

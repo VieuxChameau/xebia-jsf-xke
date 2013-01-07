@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 @ViewScoped
 public class UserController extends AbstractController implements Serializable {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     private String userId;
 
@@ -34,13 +34,13 @@ public class UserController extends AbstractController implements Serializable {
             return returnToLoginNotAuthenticated();
         }
 
-        logger.debug("Init view for user {}", userId);
+        LOGGER.debug("Init view for user {}", userId);
         try {
             loadedUser = userDao.getById(Integer.parseInt(userId));
             return null; // on reste sur la page si on a reussi a charger le user
         } catch (Exception e) {
-            logger.warn("Failed to load User {} - Reason : {}", userId, e);
-            Messages.create("Unknow user {0}", userId).error().add();
+            LOGGER.warn("Failed to load User {} - Reason : {}", userId, e);
+            Messages.create("userView.fail", userId).error().add();
         }
         return "pretty:home";
     }

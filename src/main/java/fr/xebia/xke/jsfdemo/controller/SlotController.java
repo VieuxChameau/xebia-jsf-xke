@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 @ViewScoped
 public class SlotController extends AbstractController implements Serializable {
 
-    private static final Logger logger = LoggerFactory.getLogger(SlotController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SlotController.class);
 
     public static final Set<SlotType> SLOT_TYPES = EnumSet.allOf(SlotType.class);
 
@@ -80,8 +80,8 @@ public class SlotController extends AbstractController implements Serializable {
             commentController.initComments(wantedSlotId);
             return null;
         } catch (Exception ex) { // Slot non trouve
-            logger.warn("Failed to load the slot {} - Reason : {}", slotId, ex);
-            Messages.create("Unknown slot {0}", slotId).error().add();
+            LOGGER.warn("Failed to load the slot {} - Reason : {}", slotId, ex);
+            Messages.create("slotView.fail", slotId).error().add();
         }
         return "pretty:home";
     }
@@ -98,10 +98,10 @@ public class SlotController extends AbstractController implements Serializable {
             if (userCanEditSlot()) {
                 return null;
             }
-            Messages.create("You are not allowed to edit this slot").error().add();
+            Messages.create("slotEdit.auth.fail").error().add();
         } catch (Exception ex) { // Slot non trouve
-            logger.warn("Failed to load the slot {} - Reason : {}", slotId, ex);
-            Messages.create("Unknown slot {0}", slotId).error().add();
+            LOGGER.warn("Failed to load the slot {} - Reason : {}", slotId, ex);
+            Messages.create("slotView.fail", slotId).error().add();
         }
         return "pretty:home";
     }
@@ -116,7 +116,7 @@ public class SlotController extends AbstractController implements Serializable {
             return returnToLoginNotAuthenticated();
         }
 
-        final List<Slot> slots = slotDao.getAll();
+        final List<Slot> slots = slotDao.getSlotsForNextMonths(3);
 
         slotsByYearMonth = newTreeMap();
         for (Slot aSlot : slots) {
@@ -142,25 +142,38 @@ public class SlotController extends AbstractController implements Serializable {
         try {
             slot.setAuthor(currentUser);
             slotDao.create(slot);
-            Messages.addInfo(null, "Creation of slot succeed - Id {0}", slot.getId());
-            logger.debug("Creation of slot {} succeed", slot.getId());
+            Messages.addInfo(null, "slotCreate.succeed", slot.getId());
+            LOGGER.debug("Creation of slot {} succeed", slot.getId());
             slotId = slot.getId().toString();
             return "pretty:viewSlot";
         } catch (Exception ex) {
-            logger.error("Failed to create slot - Reason :", ex);
-            Messages.addError(null, "Slot Creation failed !");
+            LOGGER.error("Failed to create slot - Reason :", ex);
+            Messages.addError(null, "slotCreate.fail");
         }
         return null; // Erreur on reste sur la page
     }
 
     public String update() {
-        slotDao.update(slot);
+        try {
+            slotDao.update(slot);
+            Messages.addInfo(null, "slotUpdate.succeed");
+        } catch (Exception ex) {
+            LOGGER.error("Failed to update the slot {} - Reason :", slotId, ex);
+            Messages.addError(null, "slotUpdate.fail");
+        }
         return "pretty:viewSlot";
     }
 
     public String remove() {
-        slotDao.delete(slot);
-        return "pretty:home";
+        try {
+            slotDao.delete(slot);
+            Messages.addInfo(null, "slotRemove.succeed", slotId);
+            return "pretty:home";
+        } catch (Exception ex) {
+            LOGGER.error("Failed to remove the slot {} - Reason :", slotId, ex);
+            Messages.addError(null, "slotRemove.fail");
+        }
+        return "pretty:viewSlot";
     }
 
     /* ** ** ** ** ** * Getter/Setter * ** ** ** ** ** */

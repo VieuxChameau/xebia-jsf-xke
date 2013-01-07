@@ -13,8 +13,9 @@ import java.util.Set;
 import javax.validation.constraints.NotNull;
 
 @NamedQueries({
-    @NamedQuery(name = "Slot.getAll", query = "SELECT s from Slot s WHERE month(s.scheduleDate) >= month(current_date()) and year(s.scheduleDate) >= year(current_date())"),
-    @NamedQuery(name = "Slot.getSlotById", query = "SELECT s FROM Slot s WHERE s.id = :slotId")})
+    @NamedQuery(name = "Slot.getAll", query = "SELECT s from Slot s"),
+    @NamedQuery(name = "Slot.getSlotById", query = "SELECT s FROM Slot s WHERE s.id = :slotId"),
+    @NamedQuery(name = "Slot.getSlotsForNextMonths", query = "SELECT s FROM Slot s WHERE s.scheduleDate BETWEEN :minDate AND :maxDate ORDER BY s.scheduleDate ASC")})
 @Entity
 public class Slot implements Serializable {
 

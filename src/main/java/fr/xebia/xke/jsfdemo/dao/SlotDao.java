@@ -5,6 +5,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TemporalType;
+import org.joda.time.DateTime;
 
 @Stateless
 public class SlotDao {
@@ -18,6 +20,17 @@ public class SlotDao {
 
     public List<Slot> getAll() {
         return entityManager.createNamedQuery("Slot.getAll", Slot.class).getResultList();
+    }
+
+    public List<Slot> getSlotsForNextMonths(int month) {
+        final DateTime minDate = new DateTime().dayOfMonth().withMinimumValue();
+        final DateTime maxDate = new DateTime().plusMonths(month).dayOfMonth().withMaximumValue();
+
+
+        return entityManager.createNamedQuery("Slot.getSlotsForNextMonths", Slot.class)
+                .setParameter("minDate", minDate.toDate(), TemporalType.DATE)
+                .setParameter("maxDate", maxDate.toDate(), TemporalType.DATE)
+                .getResultList();
     }
 
     public void create(Slot slot) {

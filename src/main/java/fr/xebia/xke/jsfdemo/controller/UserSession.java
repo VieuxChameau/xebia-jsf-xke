@@ -42,8 +42,8 @@ public class UserSession extends AbstractController implements Serializable {
     }
 
     public String logout() {
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         connectedUser = null;
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return PRETTY_LOGIN;
     }
 
@@ -70,7 +70,7 @@ public class UserSession extends AbstractController implements Serializable {
             }
             redirectPage = "slots";
         } else {
-            Messages.create("login.required").error().add();
+            Messages.create("openid.fail").error().add();
         }
     }
 
