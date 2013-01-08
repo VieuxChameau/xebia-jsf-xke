@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="template/main.xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html">
 
-    <ui:define name="content">
-        <h:form>
-            <p:messages globalOnly="true" />
-        </h:form>
-        <!-- Random Slot -->
-        <ui:include src="/slot/random.xhtml"/>
-        <br />
-        <!-- List Slot by Month -->
-        <ui:include src="/slot/list.xhtml"/>
-    </ui:define>
+    <ui:remove>
+        - Utiliser le template et définir le content (ui:define)
+        - Inclure les pages slot/random.xhtml et slot/list.xhtml
+    </ui:remove>
+
 </ui:composition>

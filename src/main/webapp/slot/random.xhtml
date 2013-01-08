@@ -1,19 +1,29 @@
 <f:subview xmlns="http://www.w3.org/1999/xhtml"
            xmlns:h="http://java.sun.com/jsf/html"
            xmlns:f="http://java.sun.com/jsf/core"
-           id="random_slot"
-           rendered="#{slotController.slot != null}">
+           xmlns:ui="http://java.sun.com/jsf/facelets"
+           id="random_slot">
 
     <div class="hero-unit">
         <h3 id="authors">
-            <h:outputText value="#{slotController.slot.title}"/>
+            <ui:remove>
+                Afficher le titre du slot
+            </ui:remove>
             <br/>
-            <small> by <h:outputText value="#{slotController.slot.author.fullName}"/></small>
+            <small>
+                <ui:remove>
+                    Afficher l'auteur du slot
+                </ui:remove>
+            </small>
         </h3>
-        <p class="description"><h:outputText value="#{slotController.slot.description}"/></p>
-        <h:link value="#{messages['slot.learn.more']}" styleClass="btn primary large" outcome="pretty:viewSlot">
-            <f:param name="slotId" value="#{slotController.slot.id}"/>
-        </h:link>
+        <p class="description">
+            <ui:remove>
+                Afficher la description
+            </ui:remove>
+        </p>
+        <ui:remove>
+            Afficher le lien pour aller sur la page de détails du slot
+        </ui:remove>
     </div>
 
 </f:subview>

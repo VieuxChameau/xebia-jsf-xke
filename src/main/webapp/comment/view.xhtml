@@ -4,34 +4,5 @@
                 xmlns:pretty="http://ocpsoft.com/prettyfaces"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
-    <h3>
-        <h:outputFormat value="#{messages['slot.nb.comments']}" rendered="#{commentController.sumComments > 0}">
-            <f:param value="#{commentController.sumComments}"/>
-        </h:outputFormat>
-        <h:outputText value="#{messages['slot.no.comment']}" rendered="#{commentController.sumComments == 0}"/>
-    </h3>
 
-    <h:form rendered="#{commentController.sumComments > 0}" id="commentsTable">
-        <p:dataTable value="#{commentController.dataModel}" var="aComment"
-                     lazy="true" rows="10"
-                     paginator="true" paginatorAlwaysVisible="false"
-                     paginatorPosition="bottom">
-            <p:column>
-                <div class="alert-message block-message info">
-                    <h:outputText value="#{aComment.postDate}" styleClass="comment_date">
-                        <f:convertDateTime pattern="dd/MM/yyyy 'at' HH:mm"/>
-                    </h:outputText>
-                    <strong>
-                        <pretty:link mappingId="viewUser">
-                            <f:param value="#{aComment.user.id}"/>
-                            #{aComment.user.fullName}
-                        </pretty:link>#{messages['slot.comment.writter']}<br/><br/>
-                    </strong>
-                    <blockquote>
-                        <br/>#{aComment.comment}<br/>
-                    </blockquote>
-                </div>
-            </p:column>
-        </p:dataTable>
-    </h:form>
 </ui:composition>

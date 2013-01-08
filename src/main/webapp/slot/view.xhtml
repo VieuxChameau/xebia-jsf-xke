@@ -2,63 +2,11 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:pretty="http://ocpsoft.com/prettyfaces"
-                template="/template/main.xhtml">
-    <ui:define name="content">
-        <h:form>
-            <table>
-                <tr>
-                    <td><h:outputText value="#{messages['slot.title.label']}"/></td>
-                    <td><h:outputText value="#{slotController.slot.title}"/></td>
-                </tr>
-                <tr>
-                    <td><h:outputText value="#{messages['slot.description.label']}"/></td>
-                    <td><h:outputText value="#{slotController.slot.description}" style="white-space: pre-line" escape="false"/></td>
-                </tr>
-                <tr>
-                    <td><h:outputText value="#{messages['slot.videoCastAccepted.label']}"/></td>
-                    <td>
-                        <h:outputText value="#{messages['default.boolean.false']}" rendered="#{!slotController.slot.videoAccepted}" />
-                        <h:outputText value="#{messages['default.boolean.true']}" rendered="#{slotController.slot.videoAccepted}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td><h:outputText value="#{messages['slot.duration.label']}"/></td>
-                    <td><h:outputText value="#{slotController.slot.duration}"/></td>
-                </tr>
-                <tr>
-                    <td><h:outputText value="#{messages['slot.scheduledDate.label']}"/></td>
-                    <td><h:outputText value="#{slotController.slot.scheduleDate}">
-                            <f:convertDateTime pattern="MMMMM yyyy" />
-                        </h:outputText>
-                    </td>
-                </tr>
-                <tr>
-                    <td><h:outputText value="#{messages['slot.author.label']}"/></td>
-                    <td>
-                        <pretty:link mappingId="viewUser">
-                            <f:param value="#{slotController.slot.author.id}"/>
-                            <h:outputText value="#{slotController.slot.author.fullName}"/>
-                        </pretty:link>
-                    </td>
-                </tr>
-                <tr>
-                    <td><h:outputText value="#{messages['slot.type.label']}"/></td>
-                    <td><h:outputText value="#{messages[slotController.slot.slotType.i18n()]}"/></td>
-                </tr>
-                <ui:fragment rendered="#{slotController.editAllowed}">
-                    <tr>
-                        <td colspan="2" class="actions">
-                            <h:link outcome="pretty:editSlot" styleClass="btn primary" value="#{messages['default.button.edit.label']}">
-                                <f:param name="slotId" value="#{slotController.slot.id}"/>
-                            </h:link>
-                            <h:commandButton action="#{slotController.remove()}" value="#{messages['default.button.delete.label']}" styleClass="btn danger"/>
-                        </td>
-                    </tr>
-                </ui:fragment>
-            </table>
-        </h:form>
+                xmlns:pretty="http://ocpsoft.com/prettyfaces">
 
-        <ui:include src="/comment/comment.xhtml" />
-    </ui:define>
+    <ui:remove>
+        - utiliser h:panelGrid
+        - mettre à jour le controller
+    </ui:remove>
+
 </ui:composition>

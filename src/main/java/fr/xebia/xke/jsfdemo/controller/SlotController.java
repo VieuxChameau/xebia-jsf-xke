@@ -21,10 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @URLMappings(mappings = {
-    @URLMapping(id = "home", pattern = "/slots", viewId = "/home.xhtml"),
-    @URLMapping(id = "createSlot", pattern = "/slots/new", viewId = "/slot/form.xhtml"),
-    @URLMapping(id = "viewSlot", pattern = "/slots/view/#{slotId : slotController.slotId}", viewId = "/slot/view.xhtml"),
-    @URLMapping(id = "editSlot", pattern = "/slots/edit/#{slotId : slotController.slotId}", viewId = "/slot/form.xhtml")})
+    @URLMapping(id = "home", pattern = "/slots", viewId = "/home.xhtml")})
 @ManagedBean
 @ViewScoped
 public class SlotController extends AbstractController implements Serializable {
@@ -37,179 +34,20 @@ public class SlotController extends AbstractController implements Serializable {
             "1 h", "1 h 15", "1 h 30", "1 h 45", "2 h", "2 h 30", "3 h",
             "3 h 30", "4 h", "5 h", "6 h", "7 h", "8 h");
 
-    @Inject
-    private SlotDao slotDao;
-
-    @ManagedProperty(value = "#{userSession.connectedUser}")
-    private User currentUser;
-
-    @ManagedProperty(value = "#{commentController}")
-    private CommentController commentController;
-
-    private String slotId;
-
     private Slot slot;
-
-    private boolean editAllowed;
 
     private Map<YearMonth, List<Slot>> slotsByYearMonth;
 
     /* ** ** ** ** ** * Url Mapping Actions * ** ** ** ** ** */
-    @URLAction(mappingId = "createSlot", onPostback = false)
-    public String initCreateSlot() {
-        if (!isAuthenticated()) {
-            return returnToLoginNotAuthenticated();
-        }
-
-        slot = new Slot();
-        slot.setScheduleDate(new Date());
-        return null;
-    }
-
-    @URLAction(mappingId = "viewSlot", onPostback = false)
-    public String initViewSlot() {
-        if (!isAuthenticated()) {
-            return returnToLoginNotAuthenticated();
-        }
-
-        // On charge le slot demande
-        try {
-            final Integer wantedSlotId = Integer.parseInt(slotId);
-            slot = slotDao.getById(wantedSlotId);
-            editAllowed = userCanEditSlot();
-            commentController.initComments(wantedSlotId);
-            return null;
-        } catch (Exception ex) { // Slot non trouve
-            LOGGER.warn("Failed to load the slot {} - Reason : {}", slotId, ex);
-            Messages.create("slotView.fail", slotId).error().add();
-        }
-        return "pretty:home";
-    }
-
-    @URLAction(mappingId = "editSlot", onPostback = false)
-    public String initEditSlot() {
-        if (!isAuthenticated()) {
-            return returnToLoginNotAuthenticated();
-        }
-
-        try {
-            final Integer wantedSlotId = Integer.parseInt(slotId);
-            slot = slotDao.getById(wantedSlotId);
-            if (userCanEditSlot()) {
-                return null;
-            }
-            Messages.create("slotEdit.auth.fail").error().add();
-        } catch (Exception ex) { // Slot non trouve
-            LOGGER.warn("Failed to load the slot {} - Reason : {}", slotId, ex);
-            Messages.create("slotView.fail", slotId).error().add();
-        }
-        return "pretty:home";
-    }
-
-    private boolean userCanEditSlot() {
-        return currentUser != null && (currentUser.equals(slot.getAuthor()) || currentUser.isAdministrator());
-    }
-
-    @URLAction(mappingId = "home", onPostback = false)
     public String initViewSlots() {
         if (!isAuthenticated()) {
             return returnToLoginNotAuthenticated();
         }
 
-        final List<Slot> slots = slotDao.getSlotsForNextMonths(3);
-
-        slotsByYearMonth = newTreeMap();
-        for (Slot aSlot : slots) {
-            YearMonth yearMonth = new YearMonth(aSlot.getScheduleDate());
-            if (slotsByYearMonth.containsKey(yearMonth)) {
-                List<Slot> list = slotsByYearMonth.get(yearMonth);
-                list.add(aSlot);
-                slotsByYearMonth.put(yearMonth, list);
-            } else {
-                slotsByYearMonth.put(yearMonth, newArrayList(aSlot));
-            }
-        }
-
-        // random slot
-        if (!slots.isEmpty()) {
-            slot = slots.get(new Random().nextInt(slots.size()));
-        }
         return null;
     }
 
     /* ** ** ** ** ** * Actions Method * ** ** ** ** ** */
-    public String create() {
-        try {
-            slot.setAuthor(currentUser);
-            slotDao.create(slot);
-            Messages.addInfo(null, "slotCreate.succeed", slot.getId());
-            LOGGER.debug("Creation of slot {} succeed", slot.getId());
-            slotId = slot.getId().toString();
-            return "pretty:viewSlot";
-        } catch (Exception ex) {
-            LOGGER.error("Failed to create slot - Reason :", ex);
-            Messages.addError(null, "slotCreate.fail");
-        }
-        return null; // Erreur on reste sur la page
-    }
-
-    public String update() {
-        try {
-            slotDao.update(slot);
-            Messages.addInfo(null, "slotUpdate.succeed");
-        } catch (Exception ex) {
-            LOGGER.error("Failed to update the slot {} - Reason :", slotId, ex);
-            Messages.addError(null, "slotUpdate.fail");
-        }
-        return "pretty:viewSlot";
-    }
-
-    public String remove() {
-        try {
-            slotDao.delete(slot);
-            Messages.addInfo(null, "slotRemove.succeed", slotId);
-            return "pretty:home";
-        } catch (Exception ex) {
-            LOGGER.error("Failed to remove the slot {} - Reason :", slotId, ex);
-            Messages.addError(null, "slotRemove.fail");
-        }
-        return "pretty:viewSlot";
-    }
 
     /* ** ** ** ** ** * Getter/Setter * ** ** ** ** ** */
-    public String getSlotId() {
-        return slotId;
-    }
-
-    public void setSlotId(String slotId) {
-        this.slotId = slotId;
-    }
-
-    public Slot getSlot() {
-        return slot;
-    }
-
-    public Map<YearMonth, List<Slot>> getSlotsByYearMonth() {
-        return slotsByYearMonth;
-    }
-
-    public List<String> getSlotDurations() {
-        return SLOT_DURATIONS;
-    }
-
-    public Set<SlotType> getSlotTypes() {
-        return SLOT_TYPES;
-    }
-
-    public boolean isEditAllowed() {
-        return editAllowed;
-    }
-
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
-    }
-
-    public void setCommentController(CommentController commentController) {
-        this.commentController = commentController;
-    }
 }

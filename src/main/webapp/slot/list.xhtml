@@ -6,21 +6,10 @@
            xmlns:p="http://primefaces.org/ui"
            id="list_slot">
 
-    <ui:repeat id="repeat" value="#{slotController.slotsByYearMonth.keySet().toArray()}" var="yearMonthKey">
-        <section>
-            <div class="page-header">
-                <h2>
-                    <h:outputText value="#{yearMonthKey.toLocalDate(2).toDate()}">
-                        <f:convertDateTime pattern="MMMMMMMMMM, yyyy"/>
-                    </h:outputText>
-                </h2>
-            </div>
-            <p:dataGrid id="grid" var="slot" value="#{slotController.slotsByYearMonth[yearMonthKey]}" columns="3">
-                <p:panel id="panel">
-                    <xke:slotBlock slot="#{slot}" />
-                </p:panel>
-            </p:dataGrid>
-        </section>
-    </ui:repeat>
+    <ui:remove>
+        - Utiliser le composant ui:repeat pour itérer sur les slots. (attention pas encore compatible avec les Set)
+        - Utiliser le composant p:dataGrid et p:panel pour l'affichage des slots (3 par lignes)
+        - Créer un composant/composite pour l'affichage d'un slot (= un élement de la panelGrid)
+    </ui:remove>
 
 </f:subview>

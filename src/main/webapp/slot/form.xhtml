@@ -2,84 +2,24 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:p="http://primefaces.org/ui"
-                template="/template/main.xhtml">
+                xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="content">
-        <h:form id="new_slot" acceptcharset="UTF-8">
-            <p:messages />
-            <fieldset>
-                <!-- Title -->
-                <div class="clearfix">
-                    <h:outputLabel value="#{messages['slot.title.label']}" for="title" styleClass="control-label"/>
-                    <div class="input">
-                        <h:inputText id="title" label="#{messages['slot.title.label']}" value="#{slotController.slot.title}" size="30" styleClass="span12"/>
-                    </div>
-                </div>
+    <h:form id="new_slot" acceptcharset="UTF-8">
+        <!-- Fieldset -->
+        <fieldset>
+            <ui:remove>
+                - ajouter les champs du slot
+                - ajouter les messages de validation
+            </ui:remove>
+        </fieldset>
 
-                <!-- Description -->
-                <div class="clearfix">
-                    <h:outputLabel value="#{messages['slot.description.label']}" for="description" styleClass="control-label"/>
-                    <div class="input">
-                        <h:inputTextarea id="description" label="#{messages['slot.description.label']}" value="#{slotController.slot.description}" rows="20" cols="40" style="width: 690px"/>
-                        <span class="help-block">
-                            <h:outputText value="#{messages['slot.description.help']}" />
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Video -->
-                <div class="clearfix">
-                    <h:outputLabel value="#{messages['slot.videoCastAccepted.label']}" for="video" styleClass="control-label"/>
-                    <div class="input">
-                        <h:selectBooleanCheckbox id="video" value="#{slotController.slot.videoAccepted}"  />
-                    </div>
-                </div>
-
-                <!-- Schedule Date -->
-                <div class="clearfix">
-                    <h:outputLabel value="#{messages['slot.wishedDate.label']}" for="scheduleDate" styleClass="control-label"/>
-                    <div class="input">
-                        <p:calendar id="scheduleDate" value="#{slotController.slot.scheduleDate}"/>
-                    </div>
-                </div>
-
-                <!-- Duration -->
-                <div class="clearfix">
-                    <h:outputLabel value="#{messages['slot.duration.label']}" for="duration" styleClass="control-label"/>
-                    <div class="input">
-                        <h:selectOneMenu id="duration" label="#{messages['slot.duration.label']}" value="#{slotController.slot.duration}">
-                            <f:selectItem itemLabel="#{messages['default.select.prompt']}" itemValue="" />
-                            <f:selectItems value="#{slotController.slotDurations}" var="duration" itemLabel="#{duration}" itemValue="#{duration}"/>
-                        </h:selectOneMenu>
-                    </div>
-                </div>
-
-                <!-- Type -->
-                <div class="clearfix">
-                    <h:outputLabel value="#{messages['slot.type.label']}" for="type" styleClass="control-label"/>
-                    <div class="input">
-                        <h:selectOneMenu id="type" label="#{messages['slot.type.label']}" value="#{slotController.slot.slotType}">
-                            <f:selectItem itemLabel="#{messages['default.select.prompt']}" itemValue="" />
-                            <f:selectItems value="#{slotController.slotTypes}" var="type" itemLabel="#{messages[type.i18n()]}" itemValue="#{type}"/>
-                        </h:selectOneMenu>
-                    </div>
-                </div>
-            </fieldset>
-
-            <!-- Actions -->
-            <div class="actions">
-                <h:commandButton id="new_slot_action" value="#{messages['default.button.create.label']}" styleClass="btn primary"
-                                 action="#{slotController.create()}"
-                                 rendered="#{empty slotController.slotId}" />
-                <h:commandButton id="update_slot_action" value="#{messages['default.button.update.label']}" styleClass="btn primary"
-                                 action="#{slotController.update()}"
-                                 rendered="#{!empty slotController.slotId}" />
-                <h:commandButton id="delete_slot_action" value="#{messages['default.button.delete.label']}" styleClass="btn danger"
-                                 action="#{slotController.remove()}" immediate="true"
-                                 rendered="#{!empty slotController.slotId}"  />
-            </div>
-        </h:form>
-    </ui:define>
+        <!-- Actions -->
+        <div class="actions">
+            <ui:remove>
+                - ajouter les bouttons d'action création, édition, suppression (voir l'attribut rendered, et h:commandLink)
+                - mettre à jour le contoller et le mapping
+            </ui:remove>
+        </div>
+    </h:form>
 
 </ui:composition>

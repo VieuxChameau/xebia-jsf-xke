@@ -9,15 +9,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
         <!-- CSS -->
-        <h:outputStylesheet name="css/bootstrap.css"/>
-        <h:outputStylesheet name="css/error.css"/>
-        <h:outputStylesheet name="css/application.css"/>
 
         <!-- JS -->
         <h:outputScript name="jquery/jquery.js" library="primefaces" />
-        <h:outputScript name="js/application.js"/>
-        <h:outputScript name="js/bootstrap.js"/>
-        <h:outputScript name="js/rating_ballot.js"/>
+
     </h:head>
 
     <h:body id="body">
@@ -26,21 +21,26 @@
             <div class="topbar" data-dropdown="dropdown">
                 <div class="fill">
                     <div class="container">
+                        <ui:remove>
+                            - lien vers la home page
+                        </ui:remove>
                         <h:link value="#{messages['menu.app.name']}" outcome="pretty:home" styleClass="brand"/>
                         <ul class="nav">
                             <li class="menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">#{messages['menu.slots.label']}<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><h:link value="#{messages['menu.slots.new.slot.label']}" outcome="pretty:createSlot"/><i class="icon-pencil"></i></li>
-                                    <li><h:link value="#{messages['menu.slots.view.slots.label']}" outcome="/home"/><i class="icon-pencil"></i></li>
+                                    <ui:remove>
+                                        - lien nouveau slot
+                                        - lien home page (liste des slots)
+                                    </ui:remove>
                                 </ul>
                             </li>
                         </ul>
                         <h:form styleClass="pull-right">
                             <p>
-                                <h:outputFormat value="#{messages['menu.loggedin.message']}">
-                                    <f:param value="#{userSession.connectedUser.fullName}"/>
-                                </h:outputFormat>
+                                <ui:remove>
+                                    - Nom prénom de l'utilisateur
+                                </ui:remove>
 
                                 <h:commandLink action="#{userSession.logout}">
                                     <h:graphicImage library="img" name="logout.png" />
@@ -54,7 +54,9 @@
 
         <!-- Content -->
         <section id="content" class="container">
-            <ui:insert name="content"/>
+            <ui:remove>
+                - template content page
+            </ui:remove>
         </section>
 
         <!-- Footer -->

@@ -3,16 +3,6 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
-    <h:form class="new_comment">
-        <h3>
-            <small>#{messages['slot.add.comment.title']}</small>
-        </h3>
-        <div class="field">
-            <p:messages/>
-            <h:inputTextarea value="#{commentController.newComment.comment}" cols="40" rows="6" styleClass="span16" label="#{messages['slot.comment.label']}"/>
-        </div>
-        <div class="actions">
-            <h:commandButton action="#{commentController.postComment()}" styleClass="btn" value="#{messages['slot.add.comment.button']}"/>
-        </div>
-    </h:form>
+
+
 </ui:composition>
