@@ -1,7 +1,7 @@
 JSF 2 en action
 ========
 
-Sujet
+## Sujet
 
 Recoder certaines fonctionnalités du site du XKE de Xebia <http://intranet.xebia.fr/xke/> afin de découvrir JSF2 dans un environnement JEE6.
 
