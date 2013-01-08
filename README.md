@@ -36,7 +36,7 @@ Les entités et DAOs seront fournis.
 
 ## Vos objectifs
 
-### Compléter le template du site (main.xhtml)
+### #1 - Compléter le template du site (main.xhtml)
 
 * Inclure les JS et CSS dans le header de la page. La librairie JQuery incluse est celle ambarquée par PrimeFaces.
 * Afficher un lien ayant pour label le nom de l’application et redirigeant vers la home page
@@ -46,7 +46,7 @@ Les entités et DAOs seront fournis.
 
 **Tips**: _h:outputStylesheet, h:outputScript, h:link, #{messages['key']}, ui:insert_
 
-### Mise en place de la home
+### #2 - Mise en place de la home
 
 * On souhaite maintenant afficher la liste des slots pour les 3 prochains mois à venir.
 * On affichera également au dessus de la liste des slots, un slot choisis aléatoirement.
@@ -55,7 +55,7 @@ Il faudra créer le premier **ManagedBean** que l’on nommera `SlotController` 
 
 **Tips**: _@ManagedBean, @ViewScoped, @URLMapping, @URLAction, ui:composition, ui:define, ui:repeat, p:dataGrid, p:panel_
 
-### Afficher le détail d’un slot
+### #3 - Afficher le détail d’un slot
 
 * Créer une page permettant d’afficher le détail d’un slot. Les données du slot seront affichés sous forme de tableau.
 * Rajouter le mapping et l’action nécessaire au bon fonctionnement de la page.
@@ -64,20 +64,20 @@ On pensera à rajouter les liens sur la home permettant d’afficher le détail 
 
 **Tips**: _@URLMappings, h:outputText, f:convertDateTime, hlink, pretty:link, rendered_
 
-### Création d’un slot
+### #4 - Création d’un slot
 
 * Créer une page qui servira de formulaire de création pour un slot. Mapping et action seront bien entendu nécessaire.
 * Ajouter des messages de succès ou d’échec pour la création. Ces messages proviendront de la validation coté Hibernate (JSR 303) sur les entités.  
 
 **Tips**: _@URLMappings, outputText, convertDateTime, link, pretty:link, rendered_
 
-### Modification/Suppresion d’un slot
+### #5 - Modification/Suppresion d’un slot
 
 * L’utilisateur depuis la page de détails d’un slot aura un boutton d’action permettant d’éditer celui-ci ou de le supprimer.
 
 **Contrainte**: le formulaire d’édition et de création doivent être les mêmes, pas de copier/coller sur une autre vue.
 
-### Poster un commentaire
+### #6 - Poster un commentaire
 
 * Il faut pouvoir poster des commentaires pour un Slot donné. 
 
@@ -85,7 +85,7 @@ Pour cela, il faut créer un **ManagedBean** que l’on nommera `Commentontrolle
 
 Cette vue sera incluse ensuite dans la vue de détail d’un slot.
 
-### Afficher la liste des commentaires
+### #7 - Afficher la liste des commentaires
 
 * De même que précédemment en dessous du détail d’un slot et au dessus du formulaire de création d’un commentaire il faudra afficher la liste des commentaires.
 
