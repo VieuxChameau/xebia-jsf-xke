@@ -3,9 +3,9 @@ JSF 2 en action
 
 ## Sujet
 
-Recoder certaines fonctionnalités du site du XKE de Xebia afin de découvrir JSF2 dans un environnement JEE6.
+Recoder certaines fonctionnalités du site du [XKE de Xebia][1] afin de découvrir JSF2 dans un environnement JEE6.
  
-* <http://intranet.xebia.fr/xke/> 
+[1]: http://intranet.xebia.fr/xke/
 
 **Stack**: _Java7, JEE6, Jboss7, JPA2, JSF2, PrettyFaces, Omnifaces, Bootstrap, OpenId4java,  Bean validation, maven_
 
@@ -24,7 +24,7 @@ Lorsque le serveur est démarré, il suffit d’utiliser les tâches ant fournit
     
 _*Normalement, il n'est nul besoin de relancer son serveur une fois démarré..._
 
-## Pre-requis 
+## Pré-requis 
 
 Les messages à inclure dans les pages sont fournis dans le bundle **messages**, accessible via l’expression EL: 
     
@@ -33,6 +33,13 @@ Les messages à inclure dans les pages sont fournis dans le bundle **messages**,
 Les classes CSS à utiliser sont celles de bootstrap afin de coller à l’existant.
 
 Les entités et DAOs seront fournis.
+
+## Liens Utiles
+
+* Facelets : <http://javaserverfaces.java.net/nonav/docs/2.1/vdldocs/facelets/index.html>
+* PrettyFaces : <http://ocpsoft.org/docs/prettyfaces/3.3.3/en-US/html/>
+* PrimeFaces : <http://www.primefaces.org/showcase/ui/home.jsf>
+* OmniFaces : <http://showcase-omnifaces.rhcloud.com/>
 
 ## Vos objectifs
 
@@ -69,7 +76,7 @@ On pensera à rajouter les liens sur la home permettant d’afficher le détail 
 * Créer une page qui servira de formulaire de création pour un slot. Mapping et action seront bien entendu nécessaire.
 * Ajouter des messages de succès ou d’échec pour la création. Ces messages proviendront de la validation coté Hibernate (JSR 303) sur les entités.  
 
-**Tips**: _@URLMappings, outputText, convertDateTime, link, pretty:link, rendered_
+**Tips**: _@URLMappings, @ManagedProperty, f:convertDateTime, h:link, pretty:link, rendered_
 
 ### #5 - Modification/Suppresion d’un slot
 
@@ -81,7 +88,7 @@ On pensera à rajouter les liens sur la home permettant d’afficher le détail 
 
 * Il faut pouvoir poster des commentaires pour un Slot donné. 
 
-Pour cela, il faut créer un **ManagedBean** que l’on nommera `Commentontroller` par exemple, et créer une vue `comment/create.xhtml` afin d’inclure un formulaire pour poster son commentaire.
+Pour cela, il faut créer un **ManagedBean** que l’on nommera `CommentController` par exemple, et créer une vue `comment/create.xhtml` afin d’inclure un formulaire pour poster son commentaire.
 
 Cette vue sera incluse ensuite dans la vue de détail d’un slot.
 
@@ -89,11 +96,10 @@ Cette vue sera incluse ensuite dans la vue de détail d’un slot.
 
 * De même que précédemment en dessous du détail d’un slot et au dessus du formulaire de création d’un commentaire il faudra afficher la liste des commentaires.
 
-Si il vous reste du temps, vous pouvez AJAXifier le post d’un commentaire et rafraîchir la liste.
+**Contrainte**: Etant donné le nombre important de commentaires qu'il y aura :) , on souhaitera paginer leur affichage et les lazy loader.
 
-## Liens Utiles
+**Tips**: _p:dataTable, lazy, LazyDataModel_
 
-* Facelets : <http://javaserverfaces.java.net/nonav/docs/2.1/vdldocs/facelets/index.html>
-* PrettyFaces : <http://ocpsoft.org/docs/prettyfaces/3.3.3/en-US/html/>
-* PrimeFaces : <http://www.primefaces.org/showcase/ui/home.jsf>
-* OmniFaces : <http://showcase-omnifaces.rhcloud.com/>
+S'il vous reste du temps, vous pouvez AJAXifier le post d’un commentaire et rafraîchir la liste.
+
+
