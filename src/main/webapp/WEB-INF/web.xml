@@ -64,7 +64,7 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>slots</welcome-file>
+        <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
 
     <error-page>
